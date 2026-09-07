@@ -1,0 +1,763 @@
+{
+  "context": {
+    "source_documents": [
+      "external-sources/linkedin-profile-2026-v1.md (current Intellihub section)",
+      "notes/job-search/makss-brag-document-2026.md (manager review, self-reflection, values, coaching Q3/Q4)",
+      "notes/job-search/job-search-2026.md (target roles: AI Engineer primary, Test Automation secondary)"
+    ],
+    "target_roles": [
+      "Applied AI Engineer / AI Enablement Engineer (primary)",
+      "Test Automation / Quality Engineer (secondary)"
+    ],
+    "excluded_from_extraction": [
+      "Growth areas and development areas (overengineering, AI discipline, prioritisation)",
+      "Coaching conversation reflections (Q3/Q3 self-criticism)",
+      "Self-reflection on mistakes and lessons learned"
+    ],
+    "humanizer_rules_applied": [
+      "No em dashes, no purple prose, no cliches, no slogan endings",
+      "No AI slop words: unlock, elevate, supercharge, transform, leverage, seamless, robust, holistic, game-changing",
+      "Concrete nouns and verbs, one idea per sentence",
+      "Plain language, precise technical terms kept"
+    ],
+    "total_pieces": 52
+  },
+  "canonical_roles": {
+    "applied_ai": "Building AI-powered tools, agents, and LLM-driven analysis end to end.",
+    "ai_enablement": "Team adoption of AI: Copilot Skills, agent instructions, skills and prompt libraries, knowledge sharing.",
+    "test_automation": "Automated test frameworks and scenarios: UI, API, BDD, running in CI.",
+    "quality_engineering": "QA practice and process: RCA, exploratory testing, defect management, data-quality guardrails.",
+    "automation_tooling": "Engineering productivity automation beyond tests: CI monitoring, scheduled checks, alerting, sync jobs."
+  },
+  "role_context": [
+    {
+      "id": "ctx-001",
+      "text": "Intellihub is a smart metering solutions provider in Sydney.",
+      "source": "linkedin_profile",
+      "already_in_linkedin": true,
+      "target_role": [
+        "applied_ai",
+        "ai_enablement",
+        "test_automation",
+        "quality_engineering",
+        "automation_tooling"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "ctx-002",
+      "text": "I work across two platforms: IWS (Intellihub Web Services), a Python-based platform used by the operations team for service order management, reporting, and user access management.",
+      "source": "linkedin_profile",
+      "already_in_linkedin": true,
+      "target_role": [
+        "test_automation",
+        "automation_tooling"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "ctx-003",
+      "text": "SmartCore is a new system built on Microsoft Azure and D365 using TypeScript, designed to replace IWS. I test it using Playwright.",
+      "source": "linkedin_profile",
+      "already_in_linkedin": true,
+      "target_role": [
+        "test_automation",
+        "automation_tooling"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "ctx-004",
+      "text": "I report to the Test Automation Lead and work alongside two offshore automation engineers.",
+      "source": "linkedin_profile",
+      "already_in_linkedin": true,
+      "target_role": [
+        "test_automation",
+        "quality_engineering"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "ctx-005",
+      "text": "My work spans test automation and AI-assisted development. I also run regular knowledge sharing sessions to help the team get practical value from AI tools, not just access to them.",
+      "source": "linkedin_profile",
+      "already_in_linkedin": true,
+      "target_role": [
+        "test_automation",
+        "ai_enablement"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "ctx-006",
+      "text": "I also contribute to IMDM, a Java-based system, working across three frameworks in total.",
+      "source": "manager_review",
+      "already_in_linkedin": false,
+      "target_role": [
+        "test_automation"
+      ],
+      "has_metrics": false
+    }
+  ],
+  "achievements": [
+    {
+      "id": "ach-001",
+      "text": "Built the first version of BDD scenarios running in the daily CI pipeline. Before this, BDD scenarios only ran on demand. Now they run daily, giving the team constant feedback.",
+      "source": "self_reflection_fy26",
+      "already_in_linkedin": false,
+      "target_role": [
+        "test_automation"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "ach-002",
+      "text": "Owned and optimised CI/CD pipelines across IWS, Jenkins, and Python, reducing manual work for the team. For example, a script that audits Jenkins for stale git branches taking up disk space, and email notifications that flag service health issues in production and test environments.",
+      "source": "self_reflection_fy26",
+      "already_in_linkedin": false,
+      "target_role": [
+        "automation_tooling",
+        "test_automation"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "ach-003",
+      "text": "Created AutomationHub: a BDD step library, metrics tracking, a SharePoint page, and Power Automate workflows for the automation team.",
+      "source": "self_reflection_fy26",
+      "already_in_linkedin": false,
+      "target_role": [
+        "test_automation",
+        "automation_tooling"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "ach-004",
+      "text": "Built the SmartCore BDD Step Library so testers, BAs, and business team members can write and reuse automation steps in plain language.",
+      "source": "values_behaviours",
+      "already_in_linkedin": false,
+      "target_role": [
+        "test_automation"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "ach-005",
+      "text": "Created .github/copilot-instructions.md (Agents.md) files in the IWS and SmartCore repos, giving AI agents a repo map and project context at session start.",
+      "source": "values_behaviours",
+      "already_in_linkedin": false,
+      "target_role": [
+        "ai_enablement"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "ach-006",
+      "text": "Took ownership of technical debt. In PR 845 (SC-3740), removed hardcoded waits from SmartCore tests to improve test reliability.",
+      "source": "values_behaviours",
+      "already_in_linkedin": false,
+      "target_role": [
+        "test_automation",
+        "quality_engineering"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "ach-007",
+      "text": "Caught issues early through PR reviews and task coordination, preventing defects from reaching production.",
+      "source": "self_reflection_fy26",
+      "already_in_linkedin": false,
+      "target_role": [
+        "quality_engineering",
+        "test_automation"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "ach-008",
+      "text": "Supported the dev team during weekend production rollouts, including preparing, stopping, and restarting Jenkins CI jobs.",
+      "source": "values_behaviours",
+      "already_in_linkedin": false,
+      "target_role": [
+        "automation_tooling"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "ach-009",
+      "text": "Ran 6 knowledge sharing sessions on AI-assisted development, testing, and automation.",
+      "source": "self_reflection_fy26",
+      "already_in_linkedin": false,
+      "target_role": [
+        "ai_enablement"
+      ],
+      "has_metrics": true
+    },
+    {
+      "id": "ach-010",
+      "text": "Created blog posts from session transcripts and shared them with the team.",
+      "source": "values_behaviours",
+      "already_in_linkedin": false,
+      "target_role": [
+        "ai_enablement"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "ach-011",
+      "text": "Ran daily pipeline checks, built BDD scenarios from existing steps, and created shareable test reports for stakeholders.",
+      "source": "coaching_q4",
+      "already_in_linkedin": false,
+      "target_role": [
+        "test_automation",
+        "automation_tooling"
+      ],
+      "has_metrics": false
+    }
+  ],
+  "ai_enablement": [
+    {
+      "id": "ai-001",
+      "text": "Created 5 GitHub Copilot Skills for shared team use, covering IWS domain knowledge, task creation, and AI skill best practices. 2 to 3 team members confirmed using them in daily work.",
+      "source": "linkedin_profile",
+      "already_in_linkedin": true,
+      "target_role": [
+        "ai_enablement"
+      ],
+      "has_metrics": true
+    },
+    {
+      "id": "ai-002",
+      "text": "Built 15 or more additional AI skills and prompts for my own AI-assisted development workflow.",
+      "source": "linkedin_profile",
+      "already_in_linkedin": true,
+      "target_role": [
+        "applied_ai"
+      ],
+      "has_metrics": true
+    },
+    {
+      "id": "ai-003",
+      "text": "Developed an AI-powered PR review agent: a skill package with scripts, templates, and references. It reduces token usage, produces structured review reports with verdict, summary, and suggestions, and saves an estimated 5 to 10% time per review.",
+      "source": "linkedin_profile",
+      "already_in_linkedin": true,
+      "target_role": [
+        "applied_ai",
+        "ai_enablement"
+      ],
+      "has_metrics": true
+    },
+    {
+      "id": "ai-004",
+      "text": "Created Agents.md instructions for both IWS and SmartCore frameworks. These load at the start of each AI session and give the assistant the right context and guidance for the project.",
+      "source": "linkedin_profile",
+      "already_in_linkedin": true,
+      "target_role": [
+        "ai_enablement"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "ai-005",
+      "text": "Built a tool that automatically identifies likely causes of test failures, generates concise summaries, and suggests solutions for simple issues. It runs daily in production with a human review step before approval.",
+      "source": "linkedin_profile",
+      "already_in_linkedin": true,
+      "target_role": [
+        "applied_ai",
+        "test_automation"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "ai-006",
+      "text": "Built the AI analysis tool on the team's BDD framework so other engineers can reuse AI-powered steps written in plain language.",
+      "source": "linkedin_profile",
+      "already_in_linkedin": true,
+      "target_role": [
+        "applied_ai",
+        "test_automation"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "ai-007",
+      "text": "Created copilot-instructions.md as reusable guidance for AI collaboration, so team members do not have to set up context from scratch each time.",
+      "source": "coaching_q4",
+      "already_in_linkedin": false,
+      "target_role": [
+        "ai_enablement"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "ai-008",
+      "text": "Shared AI skills, agents, session recordings, and blog posts broadly with the team.",
+      "source": "values_behaviours",
+      "already_in_linkedin": false,
+      "target_role": [
+        "ai_enablement"
+      ],
+      "has_metrics": false
+    }
+  ],
+  "cicd_infrastructure": [
+    {
+      "id": "cicd-002",
+      "text": "Built automated monitoring for production and test environments using Jenkins declarative and classic pipelines, Python scripts, scheduled checks, email alerts, and Jenkins badges. Pipelines included readable logs and attachments for easy debugging.",
+      "source": "linkedin_profile",
+      "already_in_linkedin": true,
+      "target_role": [
+        "automation_tooling"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "cicd-003",
+      "text": "Assisted the team lead with preparing, stopping, and restarting Jenkins CI jobs to ensure successful deployments.",
+      "source": "values_behaviours",
+      "already_in_linkedin": false,
+      "target_role": [
+        "automation_tooling"
+      ],
+      "has_metrics": false
+    }
+  ],
+  "responsibilities": [
+    {
+      "id": "res-001",
+      "text": "Design and develop new test automation scripts for IWS (Python) and SmartCore (Playwright) frameworks.",
+      "source": "linkedin_profile",
+      "already_in_linkedin": true,
+      "target_role": [
+        "test_automation"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "res-002",
+      "text": "Enhance existing test automation frameworks and resolve automation issues.",
+      "source": "linkedin_profile",
+      "already_in_linkedin": true,
+      "target_role": [
+        "test_automation"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "res-003",
+      "text": "Review pull requests and give feedback to development teams across IWS and SmartCore.",
+      "source": "linkedin_profile",
+      "already_in_linkedin": true,
+      "target_role": [
+        "quality_engineering",
+        "test_automation"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "res-004",
+      "text": "Collaborate with product, operations, and development teams across both platforms.",
+      "source": "linkedin_profile",
+      "already_in_linkedin": true,
+      "target_role": [
+        "test_automation",
+        "quality_engineering"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "res-006",
+      "text": "Coordinate tasks and PR reviews across the SmartCore automation team, catching issues before merge.",
+      "source": "coaching_q4",
+      "already_in_linkedin": false,
+      "target_role": [
+        "quality_engineering",
+        "test_automation"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "res-007",
+      "text": "Work across three frameworks: IWS (Python), IMDM (Java), and SmartCore (Playwright).",
+      "source": "manager_review",
+      "already_in_linkedin": false,
+      "target_role": [
+        "test_automation"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "res-008",
+      "text": "Build reusable AI resources for both automation frameworks: prompts, skills, and workflows that help the team use AI tools in daily work.",
+      "source": "linkedin_profile",
+      "already_in_linkedin": true,
+      "target_role": [
+        "ai_enablement"
+      ],
+      "has_metrics": false
+    }
+  ],
+  "collaboration_culture": [
+    {
+      "id": "col-001",
+      "text": "Helped Sonya set up her development environment, Playwright framework, and VS Code. Coached her on using AI in coding tasks and recommended training courses.",
+      "source": "values_behaviours",
+      "already_in_linkedin": false,
+      "target_role": [
+        "ai_enablement"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "col-002",
+      "text": "Initiated regular knowledge sharing sessions on practical AI-assisted development. 3 to 4 engineers attended despite competing delivery commitments.",
+      "source": "linkedin_profile",
+      "already_in_linkedin": true,
+      "target_role": [
+        "ai_enablement"
+      ],
+      "has_metrics": true
+    },
+    {
+      "id": "col-003",
+      "text": "Over time, other team members started presenting their own techniques and lessons learned in the sessions.",
+      "source": "linkedin_profile",
+      "already_in_linkedin": true,
+      "target_role": [
+        "ai_enablement"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "col-004",
+      "text": "Gave honest feedback on SmartCore PRs, including calling out oversized PRs from other teams and flaky test implementations.",
+      "source": "values_behaviours",
+      "already_in_linkedin": false,
+      "target_role": [
+        "quality_engineering",
+        "test_automation"
+      ],
+      "has_metrics": false
+    }
+  ],
+  "skills_tools": [
+    {
+      "id": "skill-001",
+      "text": "Python: IWS automation framework development and maintenance",
+      "source": "linkedin_profile + manager_review",
+      "already_in_linkedin": true,
+      "target_role": [
+        "test_automation"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "skill-002",
+      "text": "Playwright with TypeScript: SmartCore automation framework development",
+      "source": "linkedin_profile + manager_review",
+      "already_in_linkedin": true,
+      "target_role": [
+        "test_automation"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "skill-003",
+      "text": "Java: IMDM framework contributions",
+      "source": "manager_review",
+      "already_in_linkedin": false,
+      "target_role": [
+        "test_automation"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "skill-004",
+      "text": "Jenkins: CI/CD pipeline ownership, job management, deployment support",
+      "source": "self_reflection_fy26 + values_behaviours",
+      "already_in_linkedin": false,
+      "target_role": [
+        "automation_tooling",
+        "test_automation"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "skill-005",
+      "text": "BDD framework: reusable steps library, AI-powered steps in plain language, steps shared across testers, BAs, and business team members",
+      "source": "self_reflection_fy26 + linkedin_profile",
+      "already_in_linkedin": true,
+      "target_role": [
+        "test_automation",
+        "ai_enablement"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "skill-006",
+      "text": "GitHub Copilot: Skills development, Copilot Chat, AI-assisted development workflows, copilot-instructions.md",
+      "source": "linkedin_profile + coaching_q4",
+      "already_in_linkedin": true,
+      "target_role": [
+        "applied_ai",
+        "ai_enablement"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "skill-007",
+      "text": "Microsoft Azure and D365: SmartCore platform infrastructure",
+      "source": "linkedin_profile",
+      "already_in_linkedin": true,
+      "target_role": [
+        "automation_tooling"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "skill-008",
+      "text": "Power Automate: AutomationHub workflow automation",
+      "source": "self_reflection_fy26",
+      "already_in_linkedin": false,
+      "target_role": [
+        "automation_tooling"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "skill-009",
+      "text": "SharePoint: AutomationHub team page and resource sharing",
+      "source": "self_reflection_fy26 + values_behaviours",
+      "already_in_linkedin": false,
+      "target_role": [
+        "automation_tooling"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "skill-010",
+      "text": "Atlassian Jira and Confluence: project tracking and documentation",
+      "source": "linkedin_profile",
+      "already_in_linkedin": true,
+      "target_role": [
+        "quality_engineering",
+        "test_automation"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "skill-011",
+      "text": "GitLab: version control and CI",
+      "source": "linkedin_profile",
+      "already_in_linkedin": true,
+      "target_role": [
+        "automation_tooling",
+        "test_automation"
+      ],
+      "has_metrics": false
+    }
+  ],
+  "manager_feedback": [
+    {
+      "id": "mgr-001",
+      "text": "\"Demonstrates solid confidence working across IWS (Python), IMDM (Java), and SmartCore (Playwright), with the ability to contribute effectively across multiple stacks.\"",
+      "source": "manager_review",
+      "already_in_linkedin": false,
+      "target_role": [
+        "test_automation"
+      ],
+      "has_metrics": false,
+      "note": "Direct quote from manager review. Strong third-party validation of cross-framework capability."
+    },
+    {
+      "id": "mgr-002",
+      "text": "\"Consistently takes end-to-end responsibility and delivers results across complex areas.\"",
+      "source": "manager_review",
+      "already_in_linkedin": false,
+      "target_role": [
+        "applied_ai",
+        "ai_enablement",
+        "test_automation",
+        "quality_engineering",
+        "automation_tooling"
+      ],
+      "has_metrics": false,
+      "note": "Direct quote. Shows ownership, relevant for both target roles."
+    },
+    {
+      "id": "mgr-003",
+      "text": "\"Maintains strong contribution levels across automation, CI/CD, and enablement initiatives.\"",
+      "source": "manager_review",
+      "already_in_linkedin": false,
+      "target_role": [
+        "test_automation",
+        "automation_tooling",
+        "ai_enablement"
+      ],
+      "has_metrics": false,
+      "note": "Direct quote. Covers both AI and automation sides."
+    },
+    {
+      "id": "mgr-004",
+      "text": "\"Actively contributes to PR reviews, knowledge sharing, and team support.\"",
+      "source": "manager_review",
+      "already_in_linkedin": false,
+      "target_role": [
+        "quality_engineering",
+        "ai_enablement"
+      ],
+      "has_metrics": false,
+      "note": "Direct quote. Collaboration validation."
+    },
+    {
+      "id": "mgr-005",
+      "text": "\"These outcomes improved test reliability, visibility, and overall team efficiency.\"",
+      "source": "manager_review",
+      "already_in_linkedin": false,
+      "target_role": [
+        "quality_engineering",
+        "test_automation"
+      ],
+      "has_metrics": false,
+      "note": "Direct quote summarising impact. Good closing line candidate."
+    },
+    {
+      "id": "mgr-006",
+      "text": "\"Strong support for team members through coaching, onboarding, and knowledge sharing.\"",
+      "source": "manager_review",
+      "already_in_linkedin": false,
+      "target_role": [
+        "ai_enablement",
+        "quality_engineering"
+      ],
+      "has_metrics": false,
+      "note": "Direct quote on values. Supports collaboration narrative."
+    },
+    {
+      "id": "mgr-007",
+      "text": "\"Takes ownership beyond immediate responsibilities, supporting team delivery and operations.\"",
+      "source": "manager_review",
+      "already_in_linkedin": false,
+      "target_role": [
+        "test_automation",
+        "quality_engineering",
+        "automation_tooling"
+      ],
+      "has_metrics": false,
+      "note": "Direct quote on values. Supports weekend prod support and CI/CD ownership story."
+    },
+    {
+      "id": "mgr-008",
+      "text": "Manager noted noticeable progress in the second half of the year, particularly in adopting incremental delivery and improving feedback loops following coaching discussions.",
+      "source": "manager_review",
+      "already_in_linkedin": false,
+      "target_role": [
+        "applied_ai",
+        "ai_enablement",
+        "test_automation",
+        "quality_engineering",
+        "automation_tooling"
+      ],
+      "has_metrics": false,
+      "note": "Paraphrased. Shows growth trajectory without exposing specific development areas."
+    }
+  ],
+  "personal_projects": [
+    {
+      "id": "proj-001",
+      "repo": "curriculum-learning-outcomes-au",
+      "text": "Built a machine-readable NSW curriculum dataset: 1,500+ learning outcomes extracted from 81 NESA syllabus pages, synced monthly by a GitHub Actions job, with a zero-dependency explorer on GitHub Pages.",
+      "source": "github_repo",
+      "already_in_linkedin": false,
+      "target_role": [
+        "automation_tooling"
+      ],
+      "has_metrics": true
+    },
+    {
+      "id": "proj-002",
+      "repo": "curriculum-learning-outcomes-au",
+      "text": "Added data-quality guardrails to the curriculum sync: outcomes deduplicated by CMS codename, a sync that aborts without writing when totals drop more than 10 percent, and failed fetches that keep last-known rows flagged as stale.",
+      "source": "github_repo",
+      "already_in_linkedin": false,
+      "target_role": [
+        "quality_engineering"
+      ],
+      "has_metrics": true
+    },
+    {
+      "id": "proj-003",
+      "repo": "groundcrew",
+      "text": "Built groundcrew, a public CI monitoring bot developed as part of volunteer work with Scoolendar. It reads GitHub Actions results, performs AI analysis of regression testing results, and posts plain-language summaries to Telegram: what failed, why, and where to look. It answers follow-up questions in Telegram using CI data and live website inspection. The bot recalls past failures and human corrections, so repeated issues are flagged instead of re-explained.",
+      "source": "github_repo",
+      "already_in_linkedin": false,
+      "target_role": [
+        "automation_tooling",
+        "applied_ai",
+        "test_automation"
+      ],
+      "has_metrics": false,
+      "note": "Public repo. Already in CV GitHub Highlights."
+    },
+    {
+      "id": "proj-004",
+      "repo": "docfence",
+      "text": "Built docfence, a Python CLI with no external dependencies that validates markdown spec documents against rules embedded in the document. It catches issues AI assistants introduce: TODOs, broken links, missing sections, and length overruns.",
+      "source": "github_repo",
+      "already_in_linkedin": false,
+      "target_role": [
+        "applied_ai",
+        "quality_engineering"
+      ],
+      "has_metrics": false,
+      "note": "Already in CV GitHub Highlights."
+    },
+    {
+      "id": "proj-005",
+      "repo": "compass-skills",
+      "text": "Created compass-skills, a set of AI agent skills that guide testers, test analysts, QA engineers, product managers, and UX researchers through building and applying domain knowledge: conceptual models, BDD scenarios, and structured questions.",
+      "source": "github_repo",
+      "already_in_linkedin": false,
+      "target_role": [
+        "ai_enablement",
+        "quality_engineering"
+      ],
+      "has_metrics": false,
+      "note": "Already in CV GitHub Highlights."
+    },
+    {
+      "id": "proj-006",
+      "repo": "house-of-prompts",
+      "text": "Built and maintain house-of-prompts, a curated, searchable collection of AI prompts, snippets, and workflows in markdown, organized by AI tool and use case, published on GitHub Pages.",
+      "source": "github_repo",
+      "already_in_linkedin": false,
+      "target_role": [
+        "ai_enablement"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "proj-007",
+      "repo": "starlord",
+      "text": "Wrote starlord, an agent skill that compares starred GitHub repos against locked criteria. Scripts gather metadata first, the LLM sees pre-digested facts for 8 to 12 candidates, and a validation script rejects claims without a source.",
+      "source": "github_repo",
+      "already_in_linkedin": false,
+      "target_role": [
+        "applied_ai"
+      ],
+      "has_metrics": true
+    },
+    {
+      "id": "proj-008",
+      "repo": "television-skill",
+      "text": "Created television-skill, an agent skill for the television terminal fuzzy finder, compatible with pi, Claude Code, Codex, and any Agent Skills client. It packages the full channel spec, a scaffold script for custom channels, and 7 documented gotchas.",
+      "source": "github_repo",
+      "already_in_linkedin": false,
+      "target_role": [
+        "ai_enablement"
+      ],
+      "has_metrics": false
+    }
+  ]
+}

@@ -1,0 +1,1949 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>jobkit — pieces explorer</title>
+    <style>
+      :root {
+        --bg: #1a1a2e;
+        --bg2: #16213e;
+        --bg3: #0f3460;
+        --text: #e0e0e0;
+        --text-dim: #888;
+        --accent: #e94560;
+        --accent2: #0f3460;
+        --border: #333;
+        --selected: rgba(233, 69, 96, 0.15);
+        --hover: rgba(255, 255, 255, 0.05);
+        --success: #2ea043;
+        --mono:
+          "SF Mono", "Cascadia Code", "Fira Code", Menlo, Consolas, monospace;
+        --sans:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      }
+
+      body.light {
+        --bg: #f5f6f8;
+        --bg2: #ffffff;
+        --bg3: #e9edf2;
+        --text: #1a1a2e;
+        --text-dim: #666;
+        --border: #d8dde5;
+        --selected: rgba(233, 69, 96, 0.08);
+        --hover: rgba(0, 0, 0, 0.04);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: var(--sans);
+        font-size: 14px;
+        line-height: 1.5;
+      }
+
+      #app {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      /* Header */
+      .header {
+        padding: 12px 16px;
+        background: var(--bg2);
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .header h1 {
+        font-size: 16px;
+        font-weight: 500;
+        margin-right: auto;
+      }
+
+      .header h1 span {
+        color: var(--text-dim);
+        font-weight: 400;
+      }
+
+      /* Controls bar */
+      .controls {
+        padding: 10px 16px;
+        background: var(--bg2);
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      .controls input[type="text"],
+      .controls select {
+        background: var(--bg);
+        border: 1px solid var(--border);
+        color: var(--text);
+        padding: 6px 10px;
+        border-radius: 6px;
+        font-size: 13px;
+        font-family: var(--sans);
+      }
+
+      .controls input[type="text"] {
+        flex: 1;
+        min-width: 280px;
+        max-width: 500px;
+        padding: 10px 14px;
+        font-size: 14px;
+        border-width: 2px;
+      }
+
+      .controls input[type="text"]::placeholder {
+        color: var(--text-dim);
+        font-size: 14px;
+      }
+
+      .controls input[type="text"]:focus,
+      .controls select:focus {
+        outline: none;
+        border-color: var(--accent);
+      }
+
+      .controls label {
+        font-size: 12px;
+        color: var(--text-dim);
+        white-space: nowrap;
+      }
+
+      .selection-info {
+        font-size: 12px;
+        color: var(--text-dim);
+        margin-left: auto;
+      }
+
+      .selection-info strong {
+        color: var(--accent);
+      }
+
+      /* Main content */
+      .main {
+        flex: 1;
+        overflow-y: auto;
+        padding: 12px 16px;
+      }
+
+      /* Category section */
+      .category {
+        margin-bottom: 16px;
+      }
+
+      .category-header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 0;
+        border-bottom: 1px solid var(--border);
+        margin-bottom: 6px;
+      }
+
+      .category-header h2 {
+        font-size: 13px;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: var(--text-dim);
+      }
+
+      .category-header .count {
+        font-size: 12px;
+        color: var(--text-dim);
+      }
+
+      .category-header .actions {
+        margin-left: auto;
+        display: flex;
+        gap: 6px;
+      }
+
+      /* Piece card */
+      .piece {
+        display: flex;
+        gap: 10px;
+        padding: 8px 10px;
+        border-radius: 6px;
+        margin-bottom: 4px;
+        cursor: pointer;
+        transition: background 0.15s;
+        border: 1px solid transparent;
+      }
+
+      .piece:hover {
+        background: var(--hover);
+      }
+
+      .piece.selected {
+        background: var(--selected);
+        border-color: rgba(233, 69, 96, 0.3);
+      }
+
+      .piece input[type="checkbox"] {
+        margin-top: 3px;
+        accent-color: var(--accent);
+        flex-shrink: 0;
+      }
+
+      .piece-content {
+        flex: 1;
+      }
+
+      .piece-id {
+        font-family: var(--mono);
+        font-size: 11px;
+        color: var(--text-dim);
+        margin-bottom: 2px;
+      }
+
+      .piece-text {
+        font-size: 13px;
+        line-height: 1.5;
+      }
+
+      .piece-meta {
+        display: flex;
+        gap: 8px;
+        margin-top: 4px;
+        flex-wrap: wrap;
+      }
+
+      .tag {
+        font-size: 11px;
+        padding: 1px 6px;
+        border-radius: 3px;
+        background: var(--bg3);
+        color: var(--text-dim);
+      }
+
+      .tag.role {
+        background: rgba(14, 165, 233, 0.15);
+        color: #0ea5e9;
+      }
+      .tag.metrics {
+        background: rgba(46, 160, 67, 0.15);
+        color: var(--success);
+      }
+      .tag.linkedin {
+        background: rgba(233, 69, 96, 0.15);
+        color: var(--accent);
+      }
+      .tag.new {
+        background: rgba(240, 171, 34, 0.15);
+        color: #f0ab22;
+      }
+
+      body.light .tag.role {
+        background: rgba(14, 165, 233, 0.12);
+        color: #0369a1;
+      }
+      body.light .tag.metrics {
+        background: rgba(46, 160, 67, 0.12);
+        color: #1a7f37;
+      }
+      body.light .tag {
+        color: #444;
+      }
+      body.light .tag.linkedin {
+        background: rgba(233, 69, 96, 0.1);
+        color: #c2293f;
+      }
+      body.light .tag.new {
+        background: rgba(240, 171, 34, 0.18);
+        color: #92660a;
+      }
+
+      /* Action bar */
+      .action-bar {
+        padding: 12px 16px;
+        background: var(--bg2);
+        border-top: 1px solid var(--border);
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 6px;
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        font-family: var(--sans);
+        transition: opacity 0.15s;
+      }
+
+      .btn:hover {
+        opacity: 0.9;
+      }
+
+      .btn-primary {
+        background: var(--accent);
+        color: white;
+      }
+
+      .btn-secondary {
+        background: var(--bg3);
+        color: var(--text);
+        border: 1px solid var(--border);
+      }
+
+      .btn:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+
+      .copied {
+        color: var(--success);
+        font-size: 12px;
+        margin-left: 8px;
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+
+      .copied.show {
+        opacity: 1;
+      }
+
+      /* Preview pane */
+      .preview {
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 16px;
+        margin-top: 12px;
+        font-family: var(--mono);
+        font-size: 12px;
+        line-height: 1.6;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        max-height: 300px;
+        overflow-y: auto;
+        display: none;
+      }
+
+      .preview.show {
+        display: block;
+      }
+
+      .preview-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid var(--border);
+        font-family: var(--sans);
+        font-size: 12px;
+        color: var(--text-dim);
+      }
+
+      /* Modal */
+      .modal-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.6);
+        z-index: 100;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .modal-overlay.show {
+        display: flex;
+      }
+
+      .modal {
+        background: var(--bg2);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 20px;
+        max-width: 500px;
+        width: 90%;
+        max-height: 80vh;
+        overflow-y: auto;
+      }
+
+      .modal h3 {
+        font-size: 14px;
+        margin-bottom: 12px;
+      }
+
+      .modal textarea {
+        width: 100%;
+        min-height: 200px;
+        background: var(--bg);
+        border: 1px solid var(--border);
+        color: var(--text);
+        padding: 10px;
+        border-radius: 6px;
+        font-family: var(--mono);
+        font-size: 12px;
+        resize: vertical;
+      }
+
+      .modal .btn-row {
+        display: flex;
+        gap: 8px;
+        margin-top: 12px;
+        justify-content: flex-end;
+      }
+
+      /* Drag overlay */
+      .drag-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(26, 26, 46, 0.9);
+        z-index: 200;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .drag-overlay.show {
+        display: flex;
+      }
+      .drag-overlay p {
+        font-size: 18px;
+        color: var(--text-dim);
+      }
+
+      /* Scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: var(--bg);
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--border);
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: var(--text-dim);
+      }
+
+      /* No results */
+      .no-results {
+        text-align: center;
+        padding: 40px;
+        color: var(--text-dim);
+        font-size: 14px;
+      }
+
+      /* File loading info */
+      .file-info {
+        font-size: 11px;
+        color: var(--text-dim);
+        padding: 4px 8px;
+        background: var(--bg);
+        border-radius: 4px;
+        border: 1px solid var(--border);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <!-- Header -->
+      <div class="header">
+        <h1>jobkit <span id="pieceCount"></span></h1>
+        <span class="file-info" id="fileInfo"
+          >Preloaded: intellihub-extracted-pieces.json</span
+        >
+        <button
+          class="btn btn-secondary"
+          onclick="toggleTheme()"
+          id="themeBtn"
+          title="Toggle light/dark theme"
+        >
+          Theme
+        </button>
+        <button class="btn btn-secondary" onclick="showPasteModal()">
+          Paste JSON
+        </button>
+        <button
+          class="btn btn-secondary"
+          onclick="document.getElementById('fileInput').click()"
+        >
+          Upload JSON
+        </button>
+        <input
+          type="file"
+          id="fileInput"
+          accept=".json"
+          style="display: none"
+          onchange="handleFileUpload(event)"
+        />
+      </div>
+
+      <!-- Controls -->
+      <div class="controls">
+        <input
+          type="text"
+          id="search"
+          placeholder="Search pieces..."
+          oninput="updateAll()"
+        />
+        <select id="categoryFilter" onchange="updateAll()">
+          <option value="">All categories</option>
+        </select>
+        <select id="roleFilter" onchange="updateAll()">
+          <option value="">All roles</option>
+          <option value="applied_ai">Applied AI</option>
+          <option value="ai_enablement">AI Enablement</option>
+          <option value="test_automation">Test Automation</option>
+          <option value="quality_engineering">Quality Engineering</option>
+          <option value="automation_tooling">Automation Tooling</option>
+        </select>
+        <select id="sortBy" onchange="updateAll()">
+          <option value="category">Sort: Category</option>
+          <option value="id">Sort: ID</option>
+          <option value="source">Sort: Source</option>
+        </select>
+        <div class="selection-info">
+          Selected: <strong id="selCount">0</strong> of
+          <span id="totalCount">0</span>
+          <button
+            class="btn btn-secondary"
+            style="padding: 2px 8px; font-size: 11px; margin-left: 8px"
+            onclick="clearAll()"
+          >
+            Clear All
+          </button>
+        </div>
+      </div>
+
+      <!-- Main content -->
+      <div class="main" id="piecesList"></div>
+
+      <!-- Action bar -->
+      <div class="action-bar">
+        <button class="btn btn-primary" onclick="copyMarkdown()">
+          Copy as Markdown
+        </button>
+        <button class="btn btn-primary" onclick="copyPrompt()">
+          Copy Prompt
+        </button>
+        <button class="btn btn-primary" onclick="exportMarkdown()">
+          Export as .md
+        </button>
+        <button class="btn btn-secondary" onclick="togglePreview()">
+          Preview Output
+        </button>
+        <span class="copied" id="copiedMsg">Copied!</span>
+      </div>
+
+      <!-- Preview -->
+      <div class="preview" id="preview">
+        <div class="preview-header">
+          <span id="previewLabel">Preview</span>
+          <button
+            class="btn btn-secondary"
+            style="padding: 2px 8px; font-size: 11px"
+            onclick="togglePreview()"
+          >
+            Close
+          </button>
+        </div>
+        <div id="previewContent"></div>
+      </div>
+    </div>
+
+    <!-- Paste modal -->
+    <div class="modal-overlay" id="pasteModal">
+      <div class="modal">
+        <h3>Paste JSON</h3>
+        <textarea
+          id="pasteArea"
+          placeholder="Paste your JSON content here..."
+        ></textarea>
+        <div class="btn-row">
+          <button class="btn btn-secondary" onclick="closePasteModal()">
+            Cancel
+          </button>
+          <button class="btn btn-primary" onclick="loadPastedJSON()">
+            Load
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Drag overlay -->
+    <div class="drag-overlay" id="dragOverlay">
+      <p>Drop your JSON file here</p>
+    </div>
+
+    <script>
+      // Embedded data
+      // Data injected at build time by build.mjs (see README)
+      const DEFAULT_DATA = {
+  "context": {
+    "source_documents": [
+      "external-sources/linkedin-profile-2026-v1.md (current Intellihub section)",
+      "notes/job-search/makss-brag-document-2026.md (manager review, self-reflection, values, coaching Q3/Q4)",
+      "notes/job-search/job-search-2026.md (target roles: AI Engineer primary, Test Automation secondary)"
+    ],
+    "target_roles": [
+      "Applied AI Engineer / AI Enablement Engineer (primary)",
+      "Test Automation / Quality Engineer (secondary)"
+    ],
+    "excluded_from_extraction": [
+      "Growth areas and development areas (overengineering, AI discipline, prioritisation)",
+      "Coaching conversation reflections (Q3/Q3 self-criticism)",
+      "Self-reflection on mistakes and lessons learned"
+    ],
+    "humanizer_rules_applied": [
+      "No em dashes, no purple prose, no cliches, no slogan endings",
+      "No AI slop words: unlock, elevate, supercharge, transform, leverage, seamless, robust, holistic, game-changing",
+      "Concrete nouns and verbs, one idea per sentence",
+      "Plain language, precise technical terms kept"
+    ],
+    "total_pieces": 52
+  },
+  "canonical_roles": {
+    "applied_ai": "Building AI-powered tools, agents, and LLM-driven analysis end to end.",
+    "ai_enablement": "Team adoption of AI: Copilot Skills, agent instructions, skills and prompt libraries, knowledge sharing.",
+    "test_automation": "Automated test frameworks and scenarios: UI, API, BDD, running in CI.",
+    "quality_engineering": "QA practice and process: RCA, exploratory testing, defect management, data-quality guardrails.",
+    "automation_tooling": "Engineering productivity automation beyond tests: CI monitoring, scheduled checks, alerting, sync jobs."
+  },
+  "role_context": [
+    {
+      "id": "ctx-001",
+      "text": "Intellihub is a smart metering solutions provider in Sydney.",
+      "source": "linkedin_profile",
+      "already_in_linkedin": true,
+      "target_role": [
+        "applied_ai",
+        "ai_enablement",
+        "test_automation",
+        "quality_engineering",
+        "automation_tooling"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "ctx-002",
+      "text": "I work across two platforms: IWS (Intellihub Web Services), a Python-based platform used by the operations team for service order management, reporting, and user access management.",
+      "source": "linkedin_profile",
+      "already_in_linkedin": true,
+      "target_role": [
+        "test_automation",
+        "automation_tooling"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "ctx-003",
+      "text": "SmartCore is a new system built on Microsoft Azure and D365 using TypeScript, designed to replace IWS. I test it using Playwright.",
+      "source": "linkedin_profile",
+      "already_in_linkedin": true,
+      "target_role": [
+        "test_automation",
+        "automation_tooling"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "ctx-004",
+      "text": "I report to the Test Automation Lead and work alongside two offshore automation engineers.",
+      "source": "linkedin_profile",
+      "already_in_linkedin": true,
+      "target_role": [
+        "test_automation",
+        "quality_engineering"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "ctx-005",
+      "text": "My work spans test automation and AI-assisted development. I also run regular knowledge sharing sessions to help the team get practical value from AI tools, not just access to them.",
+      "source": "linkedin_profile",
+      "already_in_linkedin": true,
+      "target_role": [
+        "test_automation",
+        "ai_enablement"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "ctx-006",
+      "text": "I also contribute to IMDM, a Java-based system, working across three frameworks in total.",
+      "source": "manager_review",
+      "already_in_linkedin": false,
+      "target_role": [
+        "test_automation"
+      ],
+      "has_metrics": false
+    }
+  ],
+  "achievements": [
+    {
+      "id": "ach-001",
+      "text": "Built the first version of BDD scenarios running in the daily CI pipeline. Before this, BDD scenarios only ran on demand. Now they run daily, giving the team constant feedback.",
+      "source": "self_reflection_fy26",
+      "already_in_linkedin": false,
+      "target_role": [
+        "test_automation"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "ach-002",
+      "text": "Owned and optimised CI/CD pipelines across IWS, Jenkins, and Python, reducing manual work for the team. For example, a script that audits Jenkins for stale git branches taking up disk space, and email notifications that flag service health issues in production and test environments.",
+      "source": "self_reflection_fy26",
+      "already_in_linkedin": false,
+      "target_role": [
+        "automation_tooling",
+        "test_automation"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "ach-003",
+      "text": "Created AutomationHub: a BDD step library, metrics tracking, a SharePoint page, and Power Automate workflows for the automation team.",
+      "source": "self_reflection_fy26",
+      "already_in_linkedin": false,
+      "target_role": [
+        "test_automation",
+        "automation_tooling"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "ach-004",
+      "text": "Built the SmartCore BDD Step Library so testers, BAs, and business team members can write and reuse automation steps in plain language.",
+      "source": "values_behaviours",
+      "already_in_linkedin": false,
+      "target_role": [
+        "test_automation"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "ach-005",
+      "text": "Created .github/copilot-instructions.md (Agents.md) files in the IWS and SmartCore repos, giving AI agents a repo map and project context at session start.",
+      "source": "values_behaviours",
+      "already_in_linkedin": false,
+      "target_role": [
+        "ai_enablement"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "ach-006",
+      "text": "Took ownership of technical debt. In PR 845 (SC-3740), removed hardcoded waits from SmartCore tests to improve test reliability.",
+      "source": "values_behaviours",
+      "already_in_linkedin": false,
+      "target_role": [
+        "test_automation",
+        "quality_engineering"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "ach-007",
+      "text": "Caught issues early through PR reviews and task coordination, preventing defects from reaching production.",
+      "source": "self_reflection_fy26",
+      "already_in_linkedin": false,
+      "target_role": [
+        "quality_engineering",
+        "test_automation"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "ach-008",
+      "text": "Supported the dev team during weekend production rollouts, including preparing, stopping, and restarting Jenkins CI jobs.",
+      "source": "values_behaviours",
+      "already_in_linkedin": false,
+      "target_role": [
+        "automation_tooling"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "ach-009",
+      "text": "Ran 6 knowledge sharing sessions on AI-assisted development, testing, and automation.",
+      "source": "self_reflection_fy26",
+      "already_in_linkedin": false,
+      "target_role": [
+        "ai_enablement"
+      ],
+      "has_metrics": true
+    },
+    {
+      "id": "ach-010",
+      "text": "Created blog posts from session transcripts and shared them with the team.",
+      "source": "values_behaviours",
+      "already_in_linkedin": false,
+      "target_role": [
+        "ai_enablement"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "ach-011",
+      "text": "Ran daily pipeline checks, built BDD scenarios from existing steps, and created shareable test reports for stakeholders.",
+      "source": "coaching_q4",
+      "already_in_linkedin": false,
+      "target_role": [
+        "test_automation",
+        "automation_tooling"
+      ],
+      "has_metrics": false
+    }
+  ],
+  "ai_enablement": [
+    {
+      "id": "ai-001",
+      "text": "Created 5 GitHub Copilot Skills for shared team use, covering IWS domain knowledge, task creation, and AI skill best practices. 2 to 3 team members confirmed using them in daily work.",
+      "source": "linkedin_profile",
+      "already_in_linkedin": true,
+      "target_role": [
+        "ai_enablement"
+      ],
+      "has_metrics": true
+    },
+    {
+      "id": "ai-002",
+      "text": "Built 15 or more additional AI skills and prompts for my own AI-assisted development workflow.",
+      "source": "linkedin_profile",
+      "already_in_linkedin": true,
+      "target_role": [
+        "applied_ai"
+      ],
+      "has_metrics": true
+    },
+    {
+      "id": "ai-003",
+      "text": "Developed an AI-powered PR review agent: a skill package with scripts, templates, and references. It reduces token usage, produces structured review reports with verdict, summary, and suggestions, and saves an estimated 5 to 10% time per review.",
+      "source": "linkedin_profile",
+      "already_in_linkedin": true,
+      "target_role": [
+        "applied_ai",
+        "ai_enablement"
+      ],
+      "has_metrics": true
+    },
+    {
+      "id": "ai-004",
+      "text": "Created Agents.md instructions for both IWS and SmartCore frameworks. These load at the start of each AI session and give the assistant the right context and guidance for the project.",
+      "source": "linkedin_profile",
+      "already_in_linkedin": true,
+      "target_role": [
+        "ai_enablement"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "ai-005",
+      "text": "Built a tool that automatically identifies likely causes of test failures, generates concise summaries, and suggests solutions for simple issues. It runs daily in production with a human review step before approval.",
+      "source": "linkedin_profile",
+      "already_in_linkedin": true,
+      "target_role": [
+        "applied_ai",
+        "test_automation"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "ai-006",
+      "text": "Built the AI analysis tool on the team's BDD framework so other engineers can reuse AI-powered steps written in plain language.",
+      "source": "linkedin_profile",
+      "already_in_linkedin": true,
+      "target_role": [
+        "applied_ai",
+        "test_automation"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "ai-007",
+      "text": "Created copilot-instructions.md as reusable guidance for AI collaboration, so team members do not have to set up context from scratch each time.",
+      "source": "coaching_q4",
+      "already_in_linkedin": false,
+      "target_role": [
+        "ai_enablement"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "ai-008",
+      "text": "Shared AI skills, agents, session recordings, and blog posts broadly with the team.",
+      "source": "values_behaviours",
+      "already_in_linkedin": false,
+      "target_role": [
+        "ai_enablement"
+      ],
+      "has_metrics": false
+    }
+  ],
+  "cicd_infrastructure": [
+    {
+      "id": "cicd-002",
+      "text": "Built automated monitoring for production and test environments using Jenkins declarative and classic pipelines, Python scripts, scheduled checks, email alerts, and Jenkins badges. Pipelines included readable logs and attachments for easy debugging.",
+      "source": "linkedin_profile",
+      "already_in_linkedin": true,
+      "target_role": [
+        "automation_tooling"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "cicd-003",
+      "text": "Assisted the team lead with preparing, stopping, and restarting Jenkins CI jobs to ensure successful deployments.",
+      "source": "values_behaviours",
+      "already_in_linkedin": false,
+      "target_role": [
+        "automation_tooling"
+      ],
+      "has_metrics": false
+    }
+  ],
+  "responsibilities": [
+    {
+      "id": "res-001",
+      "text": "Design and develop new test automation scripts for IWS (Python) and SmartCore (Playwright) frameworks.",
+      "source": "linkedin_profile",
+      "already_in_linkedin": true,
+      "target_role": [
+        "test_automation"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "res-002",
+      "text": "Enhance existing test automation frameworks and resolve automation issues.",
+      "source": "linkedin_profile",
+      "already_in_linkedin": true,
+      "target_role": [
+        "test_automation"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "res-003",
+      "text": "Review pull requests and give feedback to development teams across IWS and SmartCore.",
+      "source": "linkedin_profile",
+      "already_in_linkedin": true,
+      "target_role": [
+        "quality_engineering",
+        "test_automation"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "res-004",
+      "text": "Collaborate with product, operations, and development teams across both platforms.",
+      "source": "linkedin_profile",
+      "already_in_linkedin": true,
+      "target_role": [
+        "test_automation",
+        "quality_engineering"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "res-006",
+      "text": "Coordinate tasks and PR reviews across the SmartCore automation team, catching issues before merge.",
+      "source": "coaching_q4",
+      "already_in_linkedin": false,
+      "target_role": [
+        "quality_engineering",
+        "test_automation"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "res-007",
+      "text": "Work across three frameworks: IWS (Python), IMDM (Java), and SmartCore (Playwright).",
+      "source": "manager_review",
+      "already_in_linkedin": false,
+      "target_role": [
+        "test_automation"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "res-008",
+      "text": "Build reusable AI resources for both automation frameworks: prompts, skills, and workflows that help the team use AI tools in daily work.",
+      "source": "linkedin_profile",
+      "already_in_linkedin": true,
+      "target_role": [
+        "ai_enablement"
+      ],
+      "has_metrics": false
+    }
+  ],
+  "collaboration_culture": [
+    {
+      "id": "col-001",
+      "text": "Helped Sonya set up her development environment, Playwright framework, and VS Code. Coached her on using AI in coding tasks and recommended training courses.",
+      "source": "values_behaviours",
+      "already_in_linkedin": false,
+      "target_role": [
+        "ai_enablement"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "col-002",
+      "text": "Initiated regular knowledge sharing sessions on practical AI-assisted development. 3 to 4 engineers attended despite competing delivery commitments.",
+      "source": "linkedin_profile",
+      "already_in_linkedin": true,
+      "target_role": [
+        "ai_enablement"
+      ],
+      "has_metrics": true
+    },
+    {
+      "id": "col-003",
+      "text": "Over time, other team members started presenting their own techniques and lessons learned in the sessions.",
+      "source": "linkedin_profile",
+      "already_in_linkedin": true,
+      "target_role": [
+        "ai_enablement"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "col-004",
+      "text": "Gave honest feedback on SmartCore PRs, including calling out oversized PRs from other teams and flaky test implementations.",
+      "source": "values_behaviours",
+      "already_in_linkedin": false,
+      "target_role": [
+        "quality_engineering",
+        "test_automation"
+      ],
+      "has_metrics": false
+    }
+  ],
+  "skills_tools": [
+    {
+      "id": "skill-001",
+      "text": "Python: IWS automation framework development and maintenance",
+      "source": "linkedin_profile + manager_review",
+      "already_in_linkedin": true,
+      "target_role": [
+        "test_automation"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "skill-002",
+      "text": "Playwright with TypeScript: SmartCore automation framework development",
+      "source": "linkedin_profile + manager_review",
+      "already_in_linkedin": true,
+      "target_role": [
+        "test_automation"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "skill-003",
+      "text": "Java: IMDM framework contributions",
+      "source": "manager_review",
+      "already_in_linkedin": false,
+      "target_role": [
+        "test_automation"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "skill-004",
+      "text": "Jenkins: CI/CD pipeline ownership, job management, deployment support",
+      "source": "self_reflection_fy26 + values_behaviours",
+      "already_in_linkedin": false,
+      "target_role": [
+        "automation_tooling",
+        "test_automation"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "skill-005",
+      "text": "BDD framework: reusable steps library, AI-powered steps in plain language, steps shared across testers, BAs, and business team members",
+      "source": "self_reflection_fy26 + linkedin_profile",
+      "already_in_linkedin": true,
+      "target_role": [
+        "test_automation",
+        "ai_enablement"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "skill-006",
+      "text": "GitHub Copilot: Skills development, Copilot Chat, AI-assisted development workflows, copilot-instructions.md",
+      "source": "linkedin_profile + coaching_q4",
+      "already_in_linkedin": true,
+      "target_role": [
+        "applied_ai",
+        "ai_enablement"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "skill-007",
+      "text": "Microsoft Azure and D365: SmartCore platform infrastructure",
+      "source": "linkedin_profile",
+      "already_in_linkedin": true,
+      "target_role": [
+        "automation_tooling"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "skill-008",
+      "text": "Power Automate: AutomationHub workflow automation",
+      "source": "self_reflection_fy26",
+      "already_in_linkedin": false,
+      "target_role": [
+        "automation_tooling"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "skill-009",
+      "text": "SharePoint: AutomationHub team page and resource sharing",
+      "source": "self_reflection_fy26 + values_behaviours",
+      "already_in_linkedin": false,
+      "target_role": [
+        "automation_tooling"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "skill-010",
+      "text": "Atlassian Jira and Confluence: project tracking and documentation",
+      "source": "linkedin_profile",
+      "already_in_linkedin": true,
+      "target_role": [
+        "quality_engineering",
+        "test_automation"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "skill-011",
+      "text": "GitLab: version control and CI",
+      "source": "linkedin_profile",
+      "already_in_linkedin": true,
+      "target_role": [
+        "automation_tooling",
+        "test_automation"
+      ],
+      "has_metrics": false
+    }
+  ],
+  "manager_feedback": [
+    {
+      "id": "mgr-001",
+      "text": "\"Demonstrates solid confidence working across IWS (Python), IMDM (Java), and SmartCore (Playwright), with the ability to contribute effectively across multiple stacks.\"",
+      "source": "manager_review",
+      "already_in_linkedin": false,
+      "target_role": [
+        "test_automation"
+      ],
+      "has_metrics": false,
+      "note": "Direct quote from manager review. Strong third-party validation of cross-framework capability."
+    },
+    {
+      "id": "mgr-002",
+      "text": "\"Consistently takes end-to-end responsibility and delivers results across complex areas.\"",
+      "source": "manager_review",
+      "already_in_linkedin": false,
+      "target_role": [
+        "applied_ai",
+        "ai_enablement",
+        "test_automation",
+        "quality_engineering",
+        "automation_tooling"
+      ],
+      "has_metrics": false,
+      "note": "Direct quote. Shows ownership, relevant for both target roles."
+    },
+    {
+      "id": "mgr-003",
+      "text": "\"Maintains strong contribution levels across automation, CI/CD, and enablement initiatives.\"",
+      "source": "manager_review",
+      "already_in_linkedin": false,
+      "target_role": [
+        "test_automation",
+        "automation_tooling",
+        "ai_enablement"
+      ],
+      "has_metrics": false,
+      "note": "Direct quote. Covers both AI and automation sides."
+    },
+    {
+      "id": "mgr-004",
+      "text": "\"Actively contributes to PR reviews, knowledge sharing, and team support.\"",
+      "source": "manager_review",
+      "already_in_linkedin": false,
+      "target_role": [
+        "quality_engineering",
+        "ai_enablement"
+      ],
+      "has_metrics": false,
+      "note": "Direct quote. Collaboration validation."
+    },
+    {
+      "id": "mgr-005",
+      "text": "\"These outcomes improved test reliability, visibility, and overall team efficiency.\"",
+      "source": "manager_review",
+      "already_in_linkedin": false,
+      "target_role": [
+        "quality_engineering",
+        "test_automation"
+      ],
+      "has_metrics": false,
+      "note": "Direct quote summarising impact. Good closing line candidate."
+    },
+    {
+      "id": "mgr-006",
+      "text": "\"Strong support for team members through coaching, onboarding, and knowledge sharing.\"",
+      "source": "manager_review",
+      "already_in_linkedin": false,
+      "target_role": [
+        "ai_enablement",
+        "quality_engineering"
+      ],
+      "has_metrics": false,
+      "note": "Direct quote on values. Supports collaboration narrative."
+    },
+    {
+      "id": "mgr-007",
+      "text": "\"Takes ownership beyond immediate responsibilities, supporting team delivery and operations.\"",
+      "source": "manager_review",
+      "already_in_linkedin": false,
+      "target_role": [
+        "test_automation",
+        "quality_engineering",
+        "automation_tooling"
+      ],
+      "has_metrics": false,
+      "note": "Direct quote on values. Supports weekend prod support and CI/CD ownership story."
+    },
+    {
+      "id": "mgr-008",
+      "text": "Manager noted noticeable progress in the second half of the year, particularly in adopting incremental delivery and improving feedback loops following coaching discussions.",
+      "source": "manager_review",
+      "already_in_linkedin": false,
+      "target_role": [
+        "applied_ai",
+        "ai_enablement",
+        "test_automation",
+        "quality_engineering",
+        "automation_tooling"
+      ],
+      "has_metrics": false,
+      "note": "Paraphrased. Shows growth trajectory without exposing specific development areas."
+    }
+  ],
+  "personal_projects": [
+    {
+      "id": "proj-001",
+      "repo": "curriculum-learning-outcomes-au",
+      "text": "Built a machine-readable NSW curriculum dataset: 1,500+ learning outcomes extracted from 81 NESA syllabus pages, synced monthly by a GitHub Actions job, with a zero-dependency explorer on GitHub Pages.",
+      "source": "github_repo",
+      "already_in_linkedin": false,
+      "target_role": [
+        "automation_tooling"
+      ],
+      "has_metrics": true
+    },
+    {
+      "id": "proj-002",
+      "repo": "curriculum-learning-outcomes-au",
+      "text": "Added data-quality guardrails to the curriculum sync: outcomes deduplicated by CMS codename, a sync that aborts without writing when totals drop more than 10 percent, and failed fetches that keep last-known rows flagged as stale.",
+      "source": "github_repo",
+      "already_in_linkedin": false,
+      "target_role": [
+        "quality_engineering"
+      ],
+      "has_metrics": true
+    },
+    {
+      "id": "proj-003",
+      "repo": "groundcrew",
+      "text": "Built groundcrew, a public CI monitoring bot developed as part of volunteer work with Scoolendar. It reads GitHub Actions results, performs AI analysis of regression testing results, and posts plain-language summaries to Telegram: what failed, why, and where to look. It answers follow-up questions in Telegram using CI data and live website inspection. The bot recalls past failures and human corrections, so repeated issues are flagged instead of re-explained.",
+      "source": "github_repo",
+      "already_in_linkedin": false,
+      "target_role": [
+        "automation_tooling",
+        "applied_ai",
+        "test_automation"
+      ],
+      "has_metrics": false,
+      "note": "Public repo. Already in CV GitHub Highlights."
+    },
+    {
+      "id": "proj-004",
+      "repo": "docfence",
+      "text": "Built docfence, a Python CLI with no external dependencies that validates markdown spec documents against rules embedded in the document. It catches issues AI assistants introduce: TODOs, broken links, missing sections, and length overruns.",
+      "source": "github_repo",
+      "already_in_linkedin": false,
+      "target_role": [
+        "applied_ai",
+        "quality_engineering"
+      ],
+      "has_metrics": false,
+      "note": "Already in CV GitHub Highlights."
+    },
+    {
+      "id": "proj-005",
+      "repo": "compass-skills",
+      "text": "Created compass-skills, a set of AI agent skills that guide testers, test analysts, QA engineers, product managers, and UX researchers through building and applying domain knowledge: conceptual models, BDD scenarios, and structured questions.",
+      "source": "github_repo",
+      "already_in_linkedin": false,
+      "target_role": [
+        "ai_enablement",
+        "quality_engineering"
+      ],
+      "has_metrics": false,
+      "note": "Already in CV GitHub Highlights."
+    },
+    {
+      "id": "proj-006",
+      "repo": "house-of-prompts",
+      "text": "Built and maintain house-of-prompts, a curated, searchable collection of AI prompts, snippets, and workflows in markdown, organized by AI tool and use case, published on GitHub Pages.",
+      "source": "github_repo",
+      "already_in_linkedin": false,
+      "target_role": [
+        "ai_enablement"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "proj-007",
+      "repo": "starlord",
+      "text": "Wrote starlord, an agent skill that compares starred GitHub repos against locked criteria. Scripts gather metadata first, the LLM sees pre-digested facts for 8 to 12 candidates, and a validation script rejects claims without a source.",
+      "source": "github_repo",
+      "already_in_linkedin": false,
+      "target_role": [
+        "applied_ai"
+      ],
+      "has_metrics": true
+    },
+    {
+      "id": "proj-008",
+      "repo": "television-skill",
+      "text": "Created television-skill, an agent skill for the television terminal fuzzy finder, compatible with pi, Claude Code, Codex, and any Agent Skills client. It packages the full channel spec, a scaffold script for custom channels, and 7 documented gotchas.",
+      "source": "github_repo",
+      "already_in_linkedin": false,
+      "target_role": [
+        "ai_enablement"
+      ],
+      "has_metrics": false
+    }
+  ]
+};
+
+      const CATEGORY_ORDER = [
+        "role_context",
+        "achievements",
+        "ai_enablement",
+        "cicd_infrastructure",
+        "responsibilities",
+        "collaboration_culture",
+        "skills_tools",
+        "manager_feedback",
+        "personal_projects",
+      ];
+      const CATEGORY_LABELS = {
+        role_context: "Role Context",
+        achievements: "Achievements",
+        ai_enablement: "Ai Enablement",
+        cicd_infrastructure: "Cicd Infrastructure",
+        responsibilities: "Responsibilities",
+        collaboration_culture: "Collaboration Culture",
+        skills_tools: "Skills Tools",
+        manager_feedback: "Manager Feedback",
+        personal_projects: "Personal Projects",
+      };
+      const TARGET_ROLE_CONTEXT =
+        "Applied AI Engineer / AI Enablement Engineer (primary); Test Automation / Quality Engineer (secondary)";
+
+      // State
+      let state = {
+        data: DEFAULT_DATA,
+        selected: new Set(
+          (() => {
+            try {
+              return JSON.parse(
+                localStorage.getItem("pieces-explorer-selections") || "[]",
+              );
+            } catch {
+              return [];
+            }
+          })(),
+        ),
+        search: "",
+        categoryFilter: "",
+        roleFilter: "",
+        sortBy: "category",
+      };
+
+      // Build flat list
+      function getAllPieces() {
+        const pieces = [];
+        if (!state.data) return pieces;
+        for (const cat of CATEGORY_ORDER) {
+          if (!state.data[cat]) continue;
+          for (const p of state.data[cat]) {
+            if (!p.id || !p.text) continue;
+            pieces.push({ ...p, category: cat });
+          }
+        }
+        return pieces;
+      }
+
+      function getFilteredPieces() {
+        let pieces = getAllPieces();
+
+        // Text search
+        if (state.search) {
+          const q = state.search.toLowerCase();
+          pieces = pieces.filter(
+            (p) =>
+              p.text.toLowerCase().includes(q) ||
+              p.id.toLowerCase().includes(q) ||
+              (p.tags && p.tags.some((t) => t.toLowerCase().includes(q))),
+          );
+        }
+
+        // Category filter
+        if (state.categoryFilter) {
+          pieces = pieces.filter((p) => p.category === state.categoryFilter);
+        }
+
+        // Role filter
+        if (state.roleFilter) {
+          pieces = pieces.filter(
+            (p) => p.target_role && p.target_role.includes(state.roleFilter),
+          );
+        }
+
+        // Sort
+        if (state.sortBy === "id") {
+          pieces.sort((a, b) => a.id.localeCompare(b.id));
+        } else if (state.sortBy === "source") {
+          pieces.sort((a, b) => (a.source || "").localeCompare(b.source || ""));
+        }
+        // 'category' is default order (already grouped)
+
+        return pieces;
+      }
+
+      // Group pieces by category
+      function groupByCategory(pieces) {
+        const groups = {};
+        for (const p of pieces) {
+          if (!groups[p.category]) groups[p.category] = [];
+          groups[p.category].push(p);
+        }
+        return groups;
+      }
+
+      // Render pieces
+      function renderPieces() {
+        const el = document.getElementById("piecesList");
+        const pieces = getFilteredPieces();
+        const allIds = pieces.map((p) => p.id);
+        const selectedIds = [...state.selected].filter((id) =>
+          allIds.includes(id),
+        );
+
+        document.getElementById("selCount").textContent = state.selected.size;
+        document.getElementById("totalCount").textContent = pieces.length;
+
+        if (pieces.length === 0) {
+          el.replaceChildren(
+            Object.assign(document.createElement("div"), {
+              className: "no-results",
+              textContent: "No pieces match your filters.",
+            }),
+          );
+          return;
+        }
+
+        const groups = groupByCategory(pieces);
+        const fragment = document.createDocumentFragment();
+
+        for (const cat of CATEGORY_ORDER) {
+          if (!groups[cat] || groups[cat].length === 0) continue;
+          const catPieces = groups[cat];
+          const selInCat = catPieces.filter((p) =>
+            state.selected.has(p.id),
+          ).length;
+          const label = CATEGORY_LABELS[cat] || cat;
+
+          const catDiv = document.createElement("div");
+          catDiv.className = "category";
+
+          const headerDiv = document.createElement("div");
+          headerDiv.className = "category-header";
+
+          const h2 = document.createElement("h2");
+          h2.textContent = label;
+          headerDiv.appendChild(h2);
+
+          const countSpan = document.createElement("span");
+          countSpan.className = "count";
+          countSpan.textContent = `${selInCat}/${catPieces.length} selected`;
+          headerDiv.appendChild(countSpan);
+
+          const actionsDiv = document.createElement("div");
+          actionsDiv.className = "actions";
+
+          const selAllBtn = document.createElement("button");
+          selAllBtn.className = "btn btn-secondary";
+          selAllBtn.style.cssText = "padding:2px 8px;font-size:11px";
+          selAllBtn.textContent = "Select All";
+          selAllBtn.onclick = () => selectAllInCategory(cat);
+          actionsDiv.appendChild(selAllBtn);
+
+          const clearBtn = document.createElement("button");
+          clearBtn.className = "btn btn-secondary";
+          clearBtn.style.cssText = "padding:2px 8px;font-size:11px";
+          clearBtn.textContent = "Clear";
+          clearBtn.onclick = () => deselectAllInCategory(cat);
+          actionsDiv.appendChild(clearBtn);
+
+          headerDiv.appendChild(actionsDiv);
+          catDiv.appendChild(headerDiv);
+
+          for (const p of catPieces) {
+            const pieceDiv = document.createElement("div");
+            pieceDiv.className =
+              "piece" + (state.selected.has(p.id) ? " selected" : "");
+            pieceDiv.onclick = () => togglePiece(p.id);
+
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.checked = state.selected.has(p.id);
+            checkbox.onclick = (e) => {
+              e.stopPropagation();
+              togglePiece(p.id);
+            };
+            pieceDiv.appendChild(checkbox);
+
+            const contentDiv = document.createElement("div");
+            contentDiv.className = "piece-content";
+
+            const idDiv = document.createElement("div");
+            idDiv.className = "piece-id";
+            idDiv.textContent = p.id;
+            contentDiv.appendChild(idDiv);
+
+            const textDiv = document.createElement("div");
+            textDiv.className = "piece-text";
+            textDiv.textContent = p.text;
+            contentDiv.appendChild(textDiv);
+
+            const metaDiv = document.createElement("div");
+            metaDiv.className = "piece-meta";
+
+            for (const r of p.target_role || []) {
+              const tag = document.createElement("span");
+              tag.className = "tag role";
+              tag.textContent = r.replace("_", " ");
+              metaDiv.appendChild(tag);
+            }
+
+            if (p.has_metrics) {
+              const tag = document.createElement("span");
+              tag.className = "tag metrics";
+              tag.textContent = "has metrics";
+              metaDiv.appendChild(tag);
+            }
+
+            if (p.already_in_linkedin) {
+              const tag = document.createElement("span");
+              tag.className = "tag linkedin";
+              tag.textContent = "in linkedin";
+              metaDiv.appendChild(tag);
+            } else {
+              const tag = document.createElement("span");
+              tag.className = "tag new";
+              tag.textContent = "new";
+              metaDiv.appendChild(tag);
+            }
+
+            contentDiv.appendChild(metaDiv);
+
+            if (p.note) {
+              const noteDiv = document.createElement("div");
+              noteDiv.style.cssText =
+                "font-size:11px;color:var(--text-dim);margin-top:4px;font-style:italic";
+              noteDiv.textContent = p.note;
+              contentDiv.appendChild(noteDiv);
+            }
+
+            pieceDiv.appendChild(contentDiv);
+            catDiv.appendChild(pieceDiv);
+          }
+
+          fragment.appendChild(catDiv);
+        }
+
+        el.replaceChildren(fragment);
+      }
+
+      function escapeHtml(text) {
+        return text
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;");
+      }
+
+      function togglePiece(id) {
+        if (state.selected.has(id)) {
+          state.selected.delete(id);
+        } else {
+          state.selected.add(id);
+        }
+        saveSelections();
+        renderPieces();
+      }
+
+      function selectAllInCategory(cat) {
+        const pieces = getAllPieces().filter((p) => p.category === cat);
+        for (const p of pieces) state.selected.add(p.id);
+        saveSelections();
+        renderPieces();
+      }
+
+      function deselectAllInCategory(cat) {
+        const pieces = getAllPieces().filter((p) => p.category === cat);
+        for (const p of pieces) state.selected.delete(p.id);
+        saveSelections();
+        renderPieces();
+      }
+
+      function clearAll() {
+        state.selected.clear();
+        saveSelections();
+        renderPieces();
+      }
+
+      function saveSelections() {
+        localStorage.setItem(
+          "pieces-explorer-selections",
+          JSON.stringify([...state.selected]),
+        );
+      }
+
+      function updateAll() {
+        state.search = document.getElementById("search").value;
+        state.categoryFilter = document.getElementById("categoryFilter").value;
+        state.roleFilter = document.getElementById("roleFilter").value;
+        state.sortBy = document.getElementById("sortBy").value;
+        renderPieces();
+      }
+
+      // Build markdown output
+      function buildMarkdown() {
+        const pieces = getAllPieces().filter((p) => state.selected.has(p.id));
+        if (pieces.length === 0) return "No pieces selected.";
+
+        const groups = groupByCategory(pieces);
+        let md = "";
+
+        for (const cat of CATEGORY_ORDER) {
+          if (!groups[cat] || groups[cat].length === 0) continue;
+          const label = CATEGORY_LABELS[cat] || cat;
+          md += `## ${label}\n\n`;
+          for (const p of groups[cat]) {
+            md += `- ${p.text}\n`;
+          }
+          md += "\n";
+        }
+
+        return md.trim();
+      }
+
+      // Build prompt output
+      function buildPrompt() {
+        const md = buildMarkdown();
+        if (md === "No pieces selected.") return md;
+
+        return `Context: I am targeting ${TARGET_ROLE_CONTEXT}. Here are selected pieces from my work experience:
+
+${md}
+
+---
+
+Task: [DESCRIBE WHAT YOU WANT TO DO WITH THESE PIECES]
+
+For example: "Draft a LinkedIn work experience section using these pieces" or "Select the best 5 pieces for an AI Engineer cover letter"`;
+      }
+
+      // Copy functions
+      function copyToClipboard(text) {
+        navigator.clipboard.writeText(text).then(() => {
+          showCopied();
+        });
+      }
+
+      function showCopied() {
+        const el = document.getElementById("copiedMsg");
+        el.classList.add("show");
+        setTimeout(() => el.classList.remove("show"), 2000);
+      }
+
+      function copyMarkdown() {
+        const md = buildMarkdown();
+        if (md === "No pieces selected.") {
+          alert("No pieces selected.");
+          return;
+        }
+        copyToClipboard(md);
+        showPreview(md, "Markdown Output");
+      }
+
+      function copyPrompt() {
+        const prompt = buildPrompt();
+        if (prompt === "No pieces selected.") {
+          alert("No pieces selected.");
+          return;
+        }
+        copyToClipboard(prompt);
+        showPreview(prompt, "Prompt Output");
+      }
+
+      function exportMarkdown() {
+        const md = buildMarkdown();
+        if (md === "No pieces selected.") {
+          alert("No pieces selected.");
+          return;
+        }
+        const blob = new Blob([md], { type: "text/markdown" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "selected-pieces.md";
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+
+      // Preview
+      function showPreview(text, label) {
+        const preview = document.getElementById("preview");
+        const content = document.getElementById("previewContent");
+        const label_el = document.getElementById("previewLabel");
+        label_el.textContent = label;
+        content.textContent = text;
+        preview.classList.add("show");
+      }
+
+      function togglePreview() {
+        const preview = document.getElementById("preview");
+        if (!preview.classList.contains("show")) {
+          const md = buildMarkdown();
+          const content = document.getElementById("previewContent");
+          const labelEl = document.getElementById("previewLabel");
+          labelEl.textContent = "Markdown Output";
+          content.textContent = md;
+          preview.classList.add("show");
+        } else {
+          preview.classList.remove("show");
+        }
+      }
+
+      // File loading
+      function handleFileUpload(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          try {
+            const data = JSON.parse(e.target.result);
+            loadNewData(data, file.name);
+          } catch (err) {
+            alert("Invalid JSON: " + err.message);
+          }
+        };
+        reader.readAsText(file);
+      }
+
+      function showPasteModal() {
+        document.getElementById("pasteModal").classList.add("show");
+      }
+
+      function closePasteModal() {
+        document.getElementById("pasteModal").classList.remove("show");
+      }
+
+      function loadPastedJSON() {
+        const text = document.getElementById("pasteArea").value.trim();
+        if (!text) return;
+        try {
+          const data = JSON.parse(text);
+          loadNewData(data, "pasted-json");
+          closePasteModal();
+        } catch (err) {
+          alert("Invalid JSON: " + err.message);
+        }
+      }
+
+      function loadNewData(data, filename) {
+        // Validate structure
+        if (!data || typeof data !== "object") {
+          alert("JSON must be an object with categories as top-level keys.");
+          return;
+        }
+
+        const cats = Object.keys(data).filter((k) => k !== "context");
+        if (cats.length === 0) {
+          alert(
+            'No categories found in JSON. Expected keys like "achievements", "ai_enablement", etc.',
+          );
+          return;
+        }
+
+        state.data = data;
+        state.selected.clear();
+        saveSelections();
+
+        // Update category filter dropdown
+        const catFilter = document.getElementById("categoryFilter");
+        catFilter.replaceChildren(
+          Object.assign(document.createElement("option"), {
+            value: "",
+            textContent: "All categories",
+          }),
+        );
+        for (const cat of cats) {
+          const label = cat
+            .replace(/_/g, " ")
+            .replace(/\b\w/g, (l) => l.toUpperCase());
+          const opt = document.createElement("option");
+          opt.value = cat;
+          opt.textContent = label;
+          catFilter.appendChild(opt);
+        }
+
+        // Update CATEGORY_ORDER dynamically
+        CATEGORY_ORDER.length = 0;
+        CATEGORY_ORDER.push(...cats);
+
+        document.getElementById("fileInfo").textContent = `Loaded: ${filename}`;
+        renderPieces();
+      }
+
+      // Drag and drop
+      document.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        document.getElementById("dragOverlay").classList.add("show");
+      });
+
+      document.addEventListener("dragleave", (e) => {
+        if (e.clientX === 0 && e.clientY === 0) {
+          document.getElementById("dragOverlay").classList.remove("show");
+        }
+      });
+
+      document.addEventListener("drop", (e) => {
+        e.preventDefault();
+        document.getElementById("dragOverlay").classList.remove("show");
+        const file = e.dataTransfer.files[0];
+        if (!file || !file.name.endsWith(".json")) {
+          alert("Please drop a .json file.");
+          return;
+        }
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          try {
+            const data = JSON.parse(ev.target.result);
+            loadNewData(data, file.name);
+          } catch (err) {
+            alert("Invalid JSON: " + err.message);
+          }
+        };
+        reader.readAsText(file);
+      });
+
+      // Close modal on overlay click
+      document.getElementById("pasteModal").addEventListener("click", (e) => {
+        if (e.target === e.currentTarget) closePasteModal();
+      });
+
+      function toggleTheme() {
+        document.body.classList.toggle("light");
+        const isLight = document.body.classList.contains("light");
+        localStorage.setItem("pieces-explorer-theme", isLight ? "light" : "dark");
+      }
+
+      // Initialize
+      function init() {
+        // Populate category filter
+        const catFilter = document.getElementById("categoryFilter");
+        for (const cat of CATEGORY_ORDER) {
+          const label = CATEGORY_LABELS[cat] || cat;
+          const opt = document.createElement("option");
+          opt.value = cat;
+          opt.textContent = label;
+          catFilter.appendChild(opt);
+        }
+
+        // Restore theme (saved, else system preference)
+        const savedTheme = localStorage.getItem("pieces-explorer-theme");
+        if (
+          savedTheme === "light" ||
+          (!savedTheme &&
+            window.matchMedia("(prefers-color-scheme: light)").matches)
+        ) {
+          document.body.classList.add("light");
+        }
+
+        // Restore selections
+        const saved = localStorage.getItem("pieces-explorer-selections");
+        if (saved) {
+          try {
+            state.selected = new Set(JSON.parse(saved));
+          } catch (e) {}
+        }
+
+        if (!state.data) {
+          document.getElementById("totalCount").textContent = 0;
+          document.getElementById("piecesList").replaceChildren(
+            Object.assign(document.createElement("div"), {
+              className: "no-results",
+              textContent:
+                "No data loaded. Run `node build.mjs` to generate index.html, or drop / paste / upload a pieces JSON file.",
+            }),
+          );
+          return;
+        }
+
+        renderPieces();
+      }
+
+      init();
+    </script>
+  </body>
+</html>
