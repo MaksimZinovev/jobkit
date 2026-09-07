@@ -41,3 +41,11 @@ jobkit/
 ├── index.html                        # generated, self-contained; open by double-click
 └── README.md
 ```
+
+## Recommended skills and tools
+
+
+| No  | Name   | Description                                                                         |
+| --- | ------ | ----------------------------------------------------------------------------------- |
+| 1   | Unslop | [Unslop](https://github.com/cursor/plugins/blob/main/pstack/skills/unslop/SKILL.md) |
+
