@@ -1,6 +1,6 @@
 # jobkit
 
-**Assemble job applications from pre-written pieces.**
+**Assemble job applications from pre-written pieces.** Live: https://maksimzinovev.github.io/jobkit/
 
 ## What
 
