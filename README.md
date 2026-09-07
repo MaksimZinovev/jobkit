@@ -33,6 +33,11 @@ open index.html
 
 ## Structure
 
-- `pieces.template.html` — the UI, no data
-- `intellihub-extracted-pieces.json` — the pieces (source of truth)
-- `build.mjs` — merges both into a self-contained `index.html`
+```text
+jobkit/
+├── pieces.template.html              # the UI, no data
+├── intellihub-extracted-pieces.json  # the pieces (source of truth)
+├── build.mjs                         # merges template + data -> index.html
+├── index.html                        # generated, self-contained; open by double-click
+└── README.md
+```
