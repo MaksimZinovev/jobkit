@@ -1,994 +1,960 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>jobkit — pieces explorer</title>
-    <style>
-      :root {
-        --bg: #1a1a2e;
-        --bg2: #16213e;
-        --bg3: #0f3460;
-        --text: #e0e0e0;
-        --text-dim: #888;
-        --accent: #e94560;
-        --accent2: #0f3460;
-        --border: #333;
-        --selected: rgba(233, 69, 96, 0.15);
-        --hover: rgba(255, 255, 255, 0.05);
-        --success: #2ea043;
-        --mono:
-          "SF Mono", "Cascadia Code", "Fira Code", Menlo, Consolas, monospace;
-        --sans:
-          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      }
 
-      body.light {
-        --bg: #f5f6f8;
-        --bg2: #ffffff;
-        --bg3: #e9edf2;
-        --text: #1a1a2e;
-        --text-dim: #666;
-        --border: #d8dde5;
-        --selected: rgba(233, 69, 96, 0.08);
-        --hover: rgba(0, 0, 0, 0.04);
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>jobkit — pieces explorer</title>
+  <style>
+    :root {
+      --bg: #1a1a2e;
+      --bg2: #16213e;
+      --bg3: #0f3460;
+      --text: #e0e0e0;
+      --text-dim: #888;
+      --accent: #e94560;
+      --accent2: #0f3460;
+      --border: #333;
+      --selected: rgba(233, 69, 96, 0.15);
+      --hover: rgba(255, 255, 255, 0.05);
+      --success: #2ea043;
+      --mono:
+        "SF Mono", "Cascadia Code", "Fira Code", Menlo, Consolas, monospace;
+      --sans:
+        -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
 
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
+    body.light {
+      --bg: #f5f6f8;
+      --bg2: #ffffff;
+      --bg3: #e9edf2;
+      --text: #1a1a2e;
+      --text-dim: #666;
+      --border: #d8dde5;
+      --selected: rgba(233, 69, 96, 0.08);
+      --hover: rgba(0, 0, 0, 0.04);
+    }
 
-      body {
-        background: var(--bg);
-        color: var(--text);
-        font-family: var(--sans);
-        font-size: 14px;
-        line-height: 1.5;
-      }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-      #app {
-        display: flex;
-        flex-direction: column;
-        height: 100vh;
-        overflow: hidden;
-      }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 14px;
+      line-height: 1.5;
+    }
 
-      /* Header */
-      .header {
-        padding: 12px 16px;
-        background: var(--bg2);
-        border-bottom: 1px solid var(--border);
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        flex-wrap: wrap;
-      }
+    #app {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+    }
 
-      .header h1 {
-        font-size: 16px;
-        font-weight: 500;
-        margin-right: auto;
-      }
+    /* Header */
+    .header {
+      padding: 12px 16px;
+      background: var(--bg2);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
 
-      .header h1 span {
-        color: var(--text-dim);
-        font-weight: 400;
-      }
+    .header h1 {
+      font-size: 16px;
+      font-weight: 500;
+      margin-right: auto;
+    }
 
-      /* Controls bar */
-      .controls {
-        padding: 10px 16px;
-        background: var(--bg2);
-        border-bottom: 1px solid var(--border);
-        display: flex;
-        gap: 12px;
-        align-items: center;
-        flex-wrap: wrap;
-      }
+    .header h1 span {
+      color: var(--text-dim);
+      font-weight: 400;
+    }
 
-      .controls input[type="text"],
-      .controls select {
-        background: var(--bg);
-        border: 1px solid var(--border);
-        color: var(--text);
-        padding: 6px 10px;
-        border-radius: 6px;
-        font-size: 13px;
-        font-family: var(--sans);
-      }
+    /* Controls bar */
+    .controls {
+      padding: 10px 16px;
+      background: var(--bg2);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
 
-      .controls input[type="text"] {
-        flex: 1;
-        min-width: 280px;
-        max-width: 500px;
-        padding: 10px 14px;
-        font-size: 14px;
-        border-width: 2px;
-      }
+    .controls input[type="text"],
+    .controls select {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-family: var(--sans);
+    }
 
-      .controls input[type="text"]::placeholder {
-        color: var(--text-dim);
-        font-size: 14px;
-      }
+    .controls input[type="text"] {
+      flex: 1;
+      min-width: 280px;
+      max-width: 500px;
+      padding: 10px 14px;
+      font-size: 14px;
+      border-width: 2px;
+    }
 
-      .controls input[type="text"]:focus,
-      .controls select:focus {
-        outline: none;
-        border-color: var(--accent);
-      }
+    .controls input[type="text"]::placeholder {
+      color: var(--text-dim);
+      font-size: 14px;
+    }
 
-      .controls label {
-        font-size: 12px;
-        color: var(--text-dim);
-        white-space: nowrap;
-      }
+    .controls input[type="text"]:focus,
+    .controls select:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
 
-      .selection-info {
-        font-size: 12px;
-        color: var(--text-dim);
-        margin-left: auto;
-      }
+    .controls label {
+      font-size: 12px;
+      color: var(--text-dim);
+      white-space: nowrap;
+    }
 
-      .selection-info strong {
-        color: var(--accent);
-      }
+    .selection-info {
+      font-size: 12px;
+      color: var(--text-dim);
+      margin-left: auto;
+    }
 
-      /* Main content */
-      .main {
-        flex: 1;
-        overflow-y: auto;
-        padding: 12px 16px;
-      }
+    .selection-info strong {
+      color: var(--accent);
+    }
 
-      /* Category section */
-      .category {
-        margin-bottom: 16px;
-      }
+    /* Main content */
+    .main {
+      flex: 1;
+      overflow-y: auto;
+      padding: 12px 16px;
+    }
 
-      .category-header {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        padding: 8px 0;
-        border-bottom: 1px solid var(--border);
-        margin-bottom: 6px;
-      }
+    /* Category section */
+    .category {
+      margin-bottom: 16px;
+    }
 
-      .category-header h2 {
-        font-size: 13px;
-        font-weight: 500;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        color: var(--text-dim);
-      }
+    .category-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 6px;
+    }
 
-      .category-header .count {
-        font-size: 12px;
-        color: var(--text-dim);
-      }
+    .category-header h2 {
+      font-size: 13px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-dim);
+    }
 
-      .category-header .actions {
-        margin-left: auto;
-        display: flex;
-        gap: 6px;
-      }
+    .category-header .count {
+      font-size: 12px;
+      color: var(--text-dim);
+    }
 
-      /* Piece card */
-      .piece {
-        display: flex;
-        gap: 10px;
-        padding: 8px 10px;
-        border-radius: 6px;
-        margin-bottom: 4px;
-        cursor: pointer;
-        transition: background 0.15s;
-        border: 1px solid transparent;
-      }
+    .category-header .actions {
+      margin-left: auto;
+      display: flex;
+      gap: 6px;
+    }
 
-      .piece:hover {
-        background: var(--hover);
-      }
+    /* Piece card */
+    .piece {
+      display: flex;
+      gap: 10px;
+      padding: 8px 10px;
+      border-radius: 6px;
+      margin-bottom: 4px;
+      cursor: pointer;
+      transition: background 0.15s;
+      border: 1px solid transparent;
+    }
 
-      .piece.selected {
-        background: var(--selected);
-        border-color: rgba(233, 69, 96, 0.3);
-      }
+    .piece:hover {
+      background: var(--hover);
+    }
 
-      .piece input[type="checkbox"] {
-        margin-top: 3px;
-        accent-color: var(--accent);
-        flex-shrink: 0;
-      }
+    .piece.selected {
+      background: var(--selected);
+      border-color: rgba(233, 69, 96, 0.3);
+    }
 
-      .piece-content {
-        flex: 1;
-      }
+    .piece input[type="checkbox"] {
+      margin-top: 3px;
+      accent-color: var(--accent);
+      flex-shrink: 0;
+    }
 
-      .piece-id {
-        font-family: var(--mono);
-        font-size: 11px;
-        color: var(--text-dim);
-        margin-bottom: 2px;
-      }
+    .piece-content {
+      flex: 1;
+    }
 
-      .piece-text {
-        font-size: 13px;
-        line-height: 1.5;
-      }
+    .piece-id {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--text-dim);
+      margin-bottom: 2px;
+    }
 
-      .piece-meta {
-        display: flex;
-        gap: 8px;
-        margin-top: 4px;
-        flex-wrap: wrap;
-      }
+    .piece-text {
+      font-size: 13px;
+      line-height: 1.5;
+    }
 
-      .tag {
-        font-size: 11px;
-        padding: 1px 6px;
-        border-radius: 3px;
-        background: var(--bg3);
-        color: var(--text-dim);
-      }
+    .piece-meta {
+      display: flex;
+      gap: 8px;
+      margin-top: 4px;
+      flex-wrap: wrap;
+    }
 
-      .tag.role {
-        background: rgba(14, 165, 233, 0.15);
-        color: #0ea5e9;
-      }
-      .tag.metrics {
-        background: rgba(46, 160, 67, 0.15);
-        color: var(--success);
-      }
-      .tag.linkedin {
-        background: rgba(233, 69, 96, 0.15);
-        color: var(--accent);
-      }
-      .tag.new {
-        background: rgba(240, 171, 34, 0.15);
-        color: #f0ab22;
-      }
+    .tag {
+      font-size: 11px;
+      padding: 1px 6px;
+      border-radius: 3px;
+      background: var(--bg3);
+      color: var(--text-dim);
+    }
 
-      body.light .tag.role {
-        background: rgba(14, 165, 233, 0.12);
-        color: #0369a1;
-      }
-      body.light .tag.metrics {
-        background: rgba(46, 160, 67, 0.12);
-        color: #1a7f37;
-      }
-      body.light .tag {
-        color: #444;
-      }
-      body.light .tag.linkedin {
-        background: rgba(233, 69, 96, 0.1);
-        color: #c2293f;
-      }
-      body.light .tag.new {
-        background: rgba(240, 171, 34, 0.18);
-        color: #92660a;
-      }
+    .tag.role {
+      background: rgba(14, 165, 233, 0.15);
+      color: #0ea5e9;
+    }
 
-      /* Action bar */
-      .action-bar {
-        padding: 12px 16px;
-        background: var(--bg2);
-        border-top: 1px solid var(--border);
-        display: flex;
-        gap: 10px;
-        align-items: center;
-        flex-wrap: wrap;
-      }
+    .tag.metrics {
+      background: rgba(46, 160, 67, 0.15);
+      color: var(--success);
+    }
 
-      .btn {
-        padding: 8px 16px;
-        border: none;
-        border-radius: 6px;
-        font-size: 13px;
-        font-weight: 500;
-        cursor: pointer;
-        font-family: var(--sans);
-        transition: opacity 0.15s;
-      }
+    .tag.linkedin {
+      background: rgba(233, 69, 96, 0.15);
+      color: var(--accent);
+    }
 
-      .btn:hover {
-        opacity: 0.9;
-      }
+    .tag.new {
+      background: rgba(240, 171, 34, 0.15);
+      color: #f0ab22;
+    }
 
-      .btn-primary {
-        background: var(--accent);
-        color: white;
-      }
+    body.light .tag.role {
+      background: rgba(14, 165, 233, 0.12);
+      color: #0369a1;
+    }
 
-      .btn-secondary {
-        background: var(--bg3);
-        color: var(--text);
-        border: 1px solid var(--border);
-      }
+    body.light .tag.metrics {
+      background: rgba(46, 160, 67, 0.12);
+      color: #1a7f37;
+    }
 
-      .btn:disabled {
-        opacity: 0.4;
-        cursor: not-allowed;
-      }
+    body.light .tag {
+      color: #444;
+    }
 
-      .copied {
-        color: var(--success);
-        font-size: 12px;
-        margin-left: 8px;
-        opacity: 0;
-        transition: opacity 0.3s;
-      }
+    body.light .tag.linkedin {
+      background: rgba(233, 69, 96, 0.1);
+      color: #c2293f;
+    }
 
-      .copied.show {
-        opacity: 1;
-      }
+    body.light .tag.new {
+      background: rgba(240, 171, 34, 0.18);
+      color: #92660a;
+    }
 
-      /* Preview pane */
-      .preview {
-        background: var(--bg);
-        border: 1px solid var(--border);
-        border-radius: 6px;
-        padding: 16px;
-        margin-top: 12px;
-        font-family: var(--mono);
-        font-size: 12px;
-        line-height: 1.6;
-        white-space: pre-wrap;
-        word-wrap: break-word;
-        max-height: 300px;
-        overflow-y: auto;
-        display: none;
-      }
+    /* Action bar */
+    .action-bar {
+      padding: 12px 16px;
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
 
-      .preview.show {
-        display: block;
-      }
+    .btn {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: var(--sans);
+      transition: opacity 0.15s;
+    }
 
-      .preview-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 8px;
-        padding-bottom: 8px;
-        border-bottom: 1px solid var(--border);
-        font-family: var(--sans);
-        font-size: 12px;
-        color: var(--text-dim);
-      }
+    .btn:hover {
+      opacity: 0.9;
+    }
 
-      /* Modal */
-      .modal-overlay {
-        display: none;
-        position: fixed;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.6);
-        z-index: 100;
-        align-items: center;
-        justify-content: center;
-      }
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+    }
 
-      .modal-overlay.show {
-        display: flex;
-      }
+    .btn-secondary {
+      background: var(--bg3);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
 
-      .modal {
-        background: var(--bg2);
-        border: 1px solid var(--border);
-        border-radius: 8px;
-        padding: 20px;
-        max-width: 500px;
-        width: 90%;
-        max-height: 80vh;
-        overflow-y: auto;
-      }
+    .btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
 
-      .modal h3 {
-        font-size: 14px;
-        margin-bottom: 12px;
-      }
+    .copied {
+      color: var(--success);
+      font-size: 12px;
+      margin-left: 8px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
 
-      .modal textarea {
-        width: 100%;
-        min-height: 200px;
-        background: var(--bg);
-        border: 1px solid var(--border);
-        color: var(--text);
-        padding: 10px;
-        border-radius: 6px;
-        font-family: var(--mono);
-        font-size: 12px;
-        resize: vertical;
-      }
+    .copied.show {
+      opacity: 1;
+    }
 
-      .modal .btn-row {
-        display: flex;
-        gap: 8px;
-        margin-top: 12px;
-        justify-content: flex-end;
-      }
+    /* Preview pane */
+    .preview {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 16px;
+      margin-top: 12px;
+      font-family: var(--mono);
+      font-size: 12px;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      max-height: 300px;
+      overflow-y: auto;
+      display: none;
+    }
 
-      /* Drag overlay */
-      .drag-overlay {
-        display: none;
-        position: fixed;
-        inset: 0;
-        background: rgba(26, 26, 46, 0.9);
-        z-index: 200;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        gap: 16px;
-      }
+    .preview.show {
+      display: block;
+    }
 
-      .drag-overlay.show {
-        display: flex;
-      }
-      .drag-overlay p {
-        font-size: 18px;
-        color: var(--text-dim);
-      }
+    .preview-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+      font-family: var(--sans);
+      font-size: 12px;
+      color: var(--text-dim);
+    }
 
-      /* Scrollbar */
-      ::-webkit-scrollbar {
-        width: 8px;
-      }
-      ::-webkit-scrollbar-track {
-        background: var(--bg);
-      }
-      ::-webkit-scrollbar-thumb {
-        background: var(--border);
-        border-radius: 4px;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background: var(--text-dim);
-      }
+    /* Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+    }
 
-      /* No results */
-      .no-results {
-        text-align: center;
-        padding: 40px;
-        color: var(--text-dim);
-        font-size: 14px;
-      }
+    .modal-overlay.show {
+      display: flex;
+    }
 
-      /* File loading info */
-      .file-info {
-        font-size: 11px;
-        color: var(--text-dim);
-        padding: 4px 8px;
-        background: var(--bg);
-        border-radius: 4px;
-        border: 1px solid var(--border);
-      }
-    </style>
-  </head>
-  <body>
-    <div id="app">
-      <!-- Header -->
-      <div class="header">
-        <h1>jobkit <span id="pieceCount"></span></h1>
-        <span class="file-info" id="fileInfo"
-          >Preloaded: intellihub-extracted-pieces.json</span
-        >
-        <button
-          class="btn btn-secondary"
-          onclick="toggleTheme()"
-          id="themeBtn"
-          title="Toggle light/dark theme"
-        >
-          Theme
+    .modal {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      max-width: 500px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    .modal h3 {
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+
+    .modal textarea {
+      width: 100%;
+      min-height: 200px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 10px;
+      border-radius: 6px;
+      font-family: var(--mono);
+      font-size: 12px;
+      resize: vertical;
+    }
+
+    .modal .btn-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+      justify-content: flex-end;
+    }
+
+    /* Drag overlay */
+    .drag-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(26, 26, 46, 0.9);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .drag-overlay.show {
+      display: flex;
+    }
+
+    .drag-overlay p {
+      font-size: 18px;
+      color: var(--text-dim);
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--text-dim);
+    }
+
+    /* No results */
+    .no-results {
+      text-align: center;
+      padding: 40px;
+      color: var(--text-dim);
+      font-size: 14px;
+    }
+
+    /* File loading info */
+    .file-info {
+      font-size: 11px;
+      color: var(--text-dim);
+      padding: 4px 8px;
+      background: var(--bg);
+      border-radius: 4px;
+      border: 1px solid var(--border);
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <!-- Header -->
+    <div class="header">
+      <h1>jobkit <span id="pieceCount"></span></h1>
+      <span class="file-info" id="fileInfo">Preloaded: experience-pieces.json</span>
+      <button class="btn btn-secondary" onclick="toggleTheme()" id="themeBtn" title="Toggle light/dark theme">
+        Theme
+      </button>
+      <button class="btn btn-secondary" onclick="showPasteModal()">
+        Paste JSON
+      </button>
+      <button class="btn btn-secondary" onclick="document.getElementById('fileInput').click()">
+        Upload JSON
+      </button>
+      <input type="file" id="fileInput" accept=".json" style="display: none" onchange="handleFileUpload(event)" />
+    </div>
+
+    <!-- Controls -->
+    <div class="controls">
+      <input type="text" id="search" placeholder="Search pieces..." oninput="updateAll()"
+        title="Filter pieces by any text or piece id." />
+      <select id="categoryFilter" onchange="updateAll()"
+        title="Show one section only, e.g. Achievements or Personal Projects.">
+        <option value="">All categories</option>
+      </select>
+      <select id="roleFilter" onchange="updateAll()"
+        title="Show only pieces tagged for this role. Hint: set this before using Suggest 5 or Copy Prompt — both adapt to the chosen role.">
+        <option value="">All roles</option>
+        <option value="applied_ai">Applied AI</option>
+        <option value="ai_enablement">AI Enablement</option>
+        <option value="test_automation">Test Automation</option>
+        <option value="quality_engineering">Quality Engineering</option>
+        <option value="automation_tooling">Automation Tooling</option>
+      </select>
+      <select id="sortBy" onchange="updateAll()">
+        <option value="category">Sort: Category</option>
+        <option value="id">Sort: ID</option>
+        <option value="source">Sort: Source</option>
+      </select>
+      <div class="selection-info">
+        Selected: <strong id="selCount">0</strong> of
+        <span id="totalCount">0</span>
+        <button class="btn btn-secondary" style="padding: 2px 8px; font-size: 11px; margin-left: 8px"
+          onclick="suggestFive()"
+          title="Auto-selects the 5 highest-signal pieces for the current role filter — metrics and achievements score highest. Keeps pieces you already picked. Tip: choose a role first.">
+          Suggest 5
         </button>
-        <button class="btn btn-secondary" onclick="showPasteModal()">
-          Paste JSON
+        <button class="btn btn-secondary" style="padding: 2px 8px; font-size: 11px; margin-left: 8px"
+          onclick="clearAll()" title="Deselect all pieces.">
+          Clear All
         </button>
-        <button
-          class="btn btn-secondary"
-          onclick="document.getElementById('fileInput').click()"
-        >
-          Upload JSON
-        </button>
-        <input
-          type="file"
-          id="fileInput"
-          accept=".json"
-          style="display: none"
-          onchange="handleFileUpload(event)"
-        />
-      </div>
-
-      <!-- Controls -->
-      <div class="controls">
-        <input
-          type="text"
-          id="search"
-          placeholder="Search pieces..."
-          oninput="updateAll()"
-          title="Filter pieces by any text or piece id."
-        />
-        <select
-          id="categoryFilter"
-          onchange="updateAll()"
-          title="Show one section only, e.g. Achievements or Personal Projects."
-        >
-          <option value="">All categories</option>
-        </select>
-        <select
-          id="roleFilter"
-          onchange="updateAll()"
-          title="Show only pieces tagged for this role. Hint: set this before using Suggest 5 or Copy Prompt — both adapt to the chosen role."
-        >
-          <option value="">All roles</option>
-          <option value="applied_ai">Applied AI</option>
-          <option value="ai_enablement">AI Enablement</option>
-          <option value="test_automation">Test Automation</option>
-          <option value="quality_engineering">Quality Engineering</option>
-          <option value="automation_tooling">Automation Tooling</option>
-        </select>
-        <select id="sortBy" onchange="updateAll()">
-          <option value="category">Sort: Category</option>
-          <option value="id">Sort: ID</option>
-          <option value="source">Sort: Source</option>
-        </select>
-        <div class="selection-info">
-          Selected: <strong id="selCount">0</strong> of
-          <span id="totalCount">0</span>
-          <button
-            class="btn btn-secondary"
-            style="padding: 2px 8px; font-size: 11px; margin-left: 8px"
-            onclick="suggestFive()"
-            title="Auto-selects the 5 highest-signal pieces for the current role filter — metrics and achievements score highest. Keeps pieces you already picked. Tip: choose a role first."
-          >
-            Suggest 5
-          </button>
-          <button
-            class="btn btn-secondary"
-            style="padding: 2px 8px; font-size: 11px; margin-left: 8px"
-            onclick="clearAll()"
-            title="Deselect all pieces."
-          >
-            Clear All
-          </button>
-        </div>
-      </div>
-
-      <!-- Main content -->
-      <div class="main" id="piecesList"></div>
-
-      <!-- Action bar -->
-      <div class="action-bar">
-        <button
-          class="btn btn-primary"
-          onclick="copyMarkdown()"
-          title="Copy the selected pieces as a markdown bullet list."
-        >
-          Copy as Markdown
-        </button>
-        <button
-          class="btn btn-primary"
-          onclick="copyPrompt()"
-          title="Copy a ready-to-paste AI prompt containing your selected pieces. If a role filter is set, the prompt targets that role."
-        >
-          Copy Prompt
-        </button>
-        <button class="btn btn-primary" onclick="exportMarkdown()">
-          Export as .md
-        </button>
-        <button class="btn btn-secondary" onclick="togglePreview()">
-          Preview Output
-        </button>
-        <span class="copied" id="copiedMsg">Copied!</span>
-      </div>
-
-      <!-- Preview -->
-      <div class="preview" id="preview">
-        <div class="preview-header">
-          <span id="previewLabel">Preview</span>
-          <button
-            class="btn btn-secondary"
-            style="padding: 2px 8px; font-size: 11px"
-            onclick="togglePreview()"
-          >
-            Close
-          </button>
-        </div>
-        <div id="previewContent"></div>
       </div>
     </div>
 
-    <!-- Paste modal -->
-    <div class="modal-overlay" id="pasteModal">
-      <div class="modal">
-        <h3>Paste JSON</h3>
-        <textarea
-          id="pasteArea"
-          placeholder="Paste your JSON content here..."
-        ></textarea>
-        <div class="btn-row">
-          <button class="btn btn-secondary" onclick="closePasteModal()">
-            Cancel
-          </button>
-          <button class="btn btn-primary" onclick="loadPastedJSON()">
-            Load
-          </button>
-        </div>
+    <!-- Main content -->
+    <div class="main" id="piecesList"></div>
+
+    <!-- Action bar -->
+    <div class="action-bar">
+      <button class="btn btn-primary" onclick="copyMarkdown()"
+        title="Copy the selected pieces as a markdown bullet list.">
+        Copy as Markdown
+      </button>
+      <button class="btn btn-primary" onclick="copyPrompt()"
+        title="Copy a ready-to-paste AI prompt containing your selected pieces. If a role filter is set, the prompt targets that role.">
+        Copy Prompt
+      </button>
+      <button class="btn btn-primary" onclick="exportMarkdown()">
+        Export as .md
+      </button>
+      <button class="btn btn-secondary" onclick="togglePreview()">
+        Preview Output
+      </button>
+      <span class="copied" id="copiedMsg">Copied!</span>
+    </div>
+
+    <!-- Preview -->
+    <div class="preview" id="preview">
+      <div class="preview-header">
+        <span id="previewLabel">Preview</span>
+        <button class="btn btn-secondary" style="padding: 2px 8px; font-size: 11px" onclick="togglePreview()">
+          Close
+        </button>
+      </div>
+      <div id="previewContent"></div>
+    </div>
+  </div>
+
+  <!-- Paste modal -->
+  <div class="modal-overlay" id="pasteModal">
+    <div class="modal">
+      <h3>Paste JSON</h3>
+      <textarea id="pasteArea" placeholder="Paste your JSON content here..."></textarea>
+      <div class="btn-row">
+        <button class="btn btn-secondary" onclick="closePasteModal()">
+          Cancel
+        </button>
+        <button class="btn btn-primary" onclick="loadPastedJSON()">
+          Load
+        </button>
       </div>
     </div>
+  </div>
 
-    <!-- Drag overlay -->
-    <div class="drag-overlay" id="dragOverlay">
-      <p>Drop your JSON file here</p>
-    </div>
+  <!-- Drag overlay -->
+  <div class="drag-overlay" id="dragOverlay">
+    <p>Drop your JSON file here</p>
+  </div>
 
-    <script>
-      // Embedded data
-      // Data injected at build time by build.mjs (see README)
-      const DEFAULT_DATA = /*__PIECES_DATA__*/ null;
+  <script>
+    // Embedded data
+    // Data injected at build time by build.mjs (see README)
+    const DEFAULT_DATA = /*__PIECES_DATA__*/ null;
 
-      const CATEGORY_ORDER = [
-        "role_context",
-        "achievements",
-        "ai_enablement",
-        "cicd_infrastructure",
-        "responsibilities",
-        "collaboration_culture",
-        "skills_tools",
-        "manager_feedback",
-        "personal_projects",
-      ];
-      const CATEGORY_LABELS = {
-        role_context: "Role Context",
-        achievements: "Achievements",
-        ai_enablement: "Ai Enablement",
-        cicd_infrastructure: "Cicd Infrastructure",
-        responsibilities: "Responsibilities",
-        collaboration_culture: "Collaboration Culture",
-        skills_tools: "Skills Tools",
-        manager_feedback: "Manager Feedback",
-        personal_projects: "Personal Projects",
-      };
-      const TARGET_ROLE_CONTEXT =
-        "Applied AI Engineer / AI Enablement Engineer (primary); Test Automation / Quality Engineer (secondary)";
+    const CATEGORY_ORDER = [
+      "role_context",
+      "achievements",
+      "ai_enablement",
+      "cicd_infrastructure",
+      "responsibilities",
+      "collaboration_culture",
+      "skills_tools",
+      "manager_feedback",
+      "personal_projects",
+    ];
+    const CATEGORY_LABELS = {
+      role_context: "Role Context",
+      achievements: "Achievements",
+      ai_enablement: "Ai Enablement",
+      cicd_infrastructure: "Cicd Infrastructure",
+      responsibilities: "Responsibilities",
+      collaboration_culture: "Collaboration Culture",
+      skills_tools: "Skills Tools",
+      manager_feedback: "Manager Feedback",
+      personal_projects: "Personal Projects",
+    };
+    const TARGET_ROLE_CONTEXT =
+      "Applied AI Engineer / AI Enablement Engineer (primary); Test Automation / Quality Engineer (secondary)";
 
-      // State
-      let state = {
-        data: DEFAULT_DATA,
-        selected: new Set(
-          (() => {
-            try {
-              return JSON.parse(
-                localStorage.getItem("pieces-explorer-selections") || "[]",
-              );
-            } catch {
-              return [];
-            }
-          })(),
-        ),
-        search: "",
-        categoryFilter: "",
-        roleFilter: "",
-        sortBy: "category",
-      };
-
-      // Build flat list
-      function getAllPieces() {
-        const pieces = [];
-        if (!state.data) return pieces;
-        for (const cat of CATEGORY_ORDER) {
-          if (!state.data[cat]) continue;
-          for (const p of state.data[cat]) {
-            if (!p.id || !p.text) continue;
-            pieces.push({ ...p, category: cat });
+    // State
+    let state = {
+      data: DEFAULT_DATA,
+      selected: new Set(
+        (() => {
+          try {
+            return JSON.parse(
+              localStorage.getItem("pieces-explorer-selections") || "[]",
+            );
+          } catch {
+            return [];
           }
+        })(),
+      ),
+      search: "",
+      categoryFilter: "",
+      roleFilter: "",
+      sortBy: "category",
+    };
+
+    // Build flat list
+    function getAllPieces() {
+      const pieces = [];
+      if (!state.data) return pieces;
+      for (const cat of CATEGORY_ORDER) {
+        if (!state.data[cat]) continue;
+        for (const p of state.data[cat]) {
+          if (!p.id || !p.text) continue;
+          pieces.push({...p, category: cat});
         }
-        return pieces;
       }
+      return pieces;
+    }
 
-      function getFilteredPieces() {
-        let pieces = getAllPieces();
+    function getFilteredPieces() {
+      let pieces = getAllPieces();
 
-        // Text search
-        if (state.search) {
-          const q = state.search.toLowerCase();
-          pieces = pieces.filter(
-            (p) =>
-              p.text.toLowerCase().includes(q) ||
-              p.id.toLowerCase().includes(q) ||
-              (p.tags && p.tags.some((t) => t.toLowerCase().includes(q))),
-          );
-        }
-
-        // Category filter
-        if (state.categoryFilter) {
-          pieces = pieces.filter((p) => p.category === state.categoryFilter);
-        }
-
-        // Role filter
-        if (state.roleFilter) {
-          pieces = pieces.filter(
-            (p) => p.target_role && p.target_role.includes(state.roleFilter),
-          );
-        }
-
-        // Sort
-        if (state.sortBy === "id") {
-          pieces.sort((a, b) => a.id.localeCompare(b.id));
-        } else if (state.sortBy === "source") {
-          pieces.sort((a, b) => (a.source || "").localeCompare(b.source || ""));
-        }
-        // 'category' is default order (already grouped)
-
-        return pieces;
-      }
-
-      // Group pieces by category
-      function groupByCategory(pieces) {
-        const groups = {};
-        for (const p of pieces) {
-          if (!groups[p.category]) groups[p.category] = [];
-          groups[p.category].push(p);
-        }
-        return groups;
-      }
-
-      // Render pieces
-      function renderPieces() {
-        const el = document.getElementById("piecesList");
-        const pieces = getFilteredPieces();
-        const allIds = pieces.map((p) => p.id);
-        const selectedIds = [...state.selected].filter((id) =>
-          allIds.includes(id),
+      // Text search
+      if (state.search) {
+        const q = state.search.toLowerCase();
+        pieces = pieces.filter(
+          (p) =>
+            p.text.toLowerCase().includes(q) ||
+            p.id.toLowerCase().includes(q) ||
+            (p.tags && p.tags.some((t) => t.toLowerCase().includes(q))),
         );
+      }
 
-        document.getElementById("selCount").textContent = state.selected.size;
-        document.getElementById("totalCount").textContent = pieces.length;
+      // Category filter
+      if (state.categoryFilter) {
+        pieces = pieces.filter((p) => p.category === state.categoryFilter);
+      }
 
-        if (pieces.length === 0) {
-          el.replaceChildren(
-            Object.assign(document.createElement("div"), {
-              className: "no-results",
-              textContent: "No pieces match your filters.",
-            }),
-          );
-          return;
-        }
+      // Role filter
+      if (state.roleFilter) {
+        pieces = pieces.filter(
+          (p) => p.target_role && p.target_role.includes(state.roleFilter),
+        );
+      }
 
-        const groups = groupByCategory(pieces);
-        const fragment = document.createDocumentFragment();
+      // Sort
+      if (state.sortBy === "id") {
+        pieces.sort((a, b) => a.id.localeCompare(b.id));
+      } else if (state.sortBy === "source") {
+        pieces.sort((a, b) => (a.source || "").localeCompare(b.source || ""));
+      }
+      // 'category' is default order (already grouped)
 
-        for (const cat of CATEGORY_ORDER) {
-          if (!groups[cat] || groups[cat].length === 0) continue;
-          const catPieces = groups[cat];
-          const selInCat = catPieces.filter((p) =>
-            state.selected.has(p.id),
-          ).length;
-          const label = CATEGORY_LABELS[cat] || cat;
+      return pieces;
+    }
 
-          const catDiv = document.createElement("div");
-          catDiv.className = "category";
+    // Group pieces by category
+    function groupByCategory(pieces) {
+      const groups = {};
+      for (const p of pieces) {
+        if (!groups[p.category]) groups[p.category] = [];
+        groups[p.category].push(p);
+      }
+      return groups;
+    }
 
-          const headerDiv = document.createElement("div");
-          headerDiv.className = "category-header";
+    // Render pieces
+    function renderPieces() {
+      const el = document.getElementById("piecesList");
+      const pieces = getFilteredPieces();
+      const allIds = pieces.map((p) => p.id);
+      const selectedIds = [...state.selected].filter((id) =>
+        allIds.includes(id),
+      );
 
-          const h2 = document.createElement("h2");
-          h2.textContent = label;
-          headerDiv.appendChild(h2);
+      document.getElementById("selCount").textContent = state.selected.size;
+      document.getElementById("totalCount").textContent = pieces.length;
 
-          const countSpan = document.createElement("span");
-          countSpan.className = "count";
-          countSpan.textContent = `${selInCat}/${catPieces.length} selected`;
-          headerDiv.appendChild(countSpan);
+      if (pieces.length === 0) {
+        el.replaceChildren(
+          Object.assign(document.createElement("div"), {
+            className: "no-results",
+            textContent: "No pieces match your filters.",
+          }),
+        );
+        return;
+      }
 
-          const actionsDiv = document.createElement("div");
-          actionsDiv.className = "actions";
+      const groups = groupByCategory(pieces);
+      const fragment = document.createDocumentFragment();
 
-          const selAllBtn = document.createElement("button");
-          selAllBtn.className = "btn btn-secondary";
-          selAllBtn.style.cssText = "padding:2px 8px;font-size:11px";
-          selAllBtn.textContent = "Select All";
-          selAllBtn.onclick = () => selectAllInCategory(cat);
-          actionsDiv.appendChild(selAllBtn);
+      for (const cat of CATEGORY_ORDER) {
+        if (!groups[cat] || groups[cat].length === 0) continue;
+        const catPieces = groups[cat];
+        const selInCat = catPieces.filter((p) =>
+          state.selected.has(p.id),
+        ).length;
+        const label = CATEGORY_LABELS[cat] || cat;
 
-          const clearBtn = document.createElement("button");
-          clearBtn.className = "btn btn-secondary";
-          clearBtn.style.cssText = "padding:2px 8px;font-size:11px";
-          clearBtn.textContent = "Clear";
-          clearBtn.onclick = () => deselectAllInCategory(cat);
-          actionsDiv.appendChild(clearBtn);
+        const catDiv = document.createElement("div");
+        catDiv.className = "category";
 
-          headerDiv.appendChild(actionsDiv);
-          catDiv.appendChild(headerDiv);
+        const headerDiv = document.createElement("div");
+        headerDiv.className = "category-header";
 
-          for (const p of catPieces) {
-            const pieceDiv = document.createElement("div");
-            pieceDiv.className =
-              "piece" + (state.selected.has(p.id) ? " selected" : "");
-            pieceDiv.onclick = () => togglePiece(p.id);
+        const h2 = document.createElement("h2");
+        h2.textContent = label;
+        headerDiv.appendChild(h2);
 
-            const checkbox = document.createElement("input");
-            checkbox.type = "checkbox";
-            checkbox.checked = state.selected.has(p.id);
-            checkbox.onclick = (e) => {
-              e.stopPropagation();
-              togglePiece(p.id);
-            };
-            pieceDiv.appendChild(checkbox);
+        const countSpan = document.createElement("span");
+        countSpan.className = "count";
+        countSpan.textContent = `${selInCat}/${catPieces.length} selected`;
+        headerDiv.appendChild(countSpan);
 
-            const contentDiv = document.createElement("div");
-            contentDiv.className = "piece-content";
+        const actionsDiv = document.createElement("div");
+        actionsDiv.className = "actions";
 
-            const idDiv = document.createElement("div");
-            idDiv.className = "piece-id";
-            idDiv.textContent = p.id;
-            contentDiv.appendChild(idDiv);
+        const selAllBtn = document.createElement("button");
+        selAllBtn.className = "btn btn-secondary";
+        selAllBtn.style.cssText = "padding:2px 8px;font-size:11px";
+        selAllBtn.textContent = "Select All";
+        selAllBtn.onclick = () => selectAllInCategory(cat);
+        actionsDiv.appendChild(selAllBtn);
 
-            const textDiv = document.createElement("div");
-            textDiv.className = "piece-text";
-            textDiv.textContent = p.text;
-            contentDiv.appendChild(textDiv);
+        const clearBtn = document.createElement("button");
+        clearBtn.className = "btn btn-secondary";
+        clearBtn.style.cssText = "padding:2px 8px;font-size:11px";
+        clearBtn.textContent = "Clear";
+        clearBtn.onclick = () => deselectAllInCategory(cat);
+        actionsDiv.appendChild(clearBtn);
 
-            const metaDiv = document.createElement("div");
-            metaDiv.className = "piece-meta";
+        headerDiv.appendChild(actionsDiv);
+        catDiv.appendChild(headerDiv);
 
-            for (const r of p.target_role || []) {
-              const tag = document.createElement("span");
-              tag.className = "tag role";
-              tag.textContent = r.replace("_", " ");
-              metaDiv.appendChild(tag);
-            }
+        for (const p of catPieces) {
+          const pieceDiv = document.createElement("div");
+          pieceDiv.className =
+            "piece" + (state.selected.has(p.id) ? " selected" : "");
+          pieceDiv.onclick = () => togglePiece(p.id);
 
-            if (p.has_metrics) {
-              const tag = document.createElement("span");
-              tag.className = "tag metrics";
-              tag.textContent = "has metrics";
-              metaDiv.appendChild(tag);
-            }
+          const checkbox = document.createElement("input");
+          checkbox.type = "checkbox";
+          checkbox.checked = state.selected.has(p.id);
+          checkbox.onclick = (e) => {
+            e.stopPropagation();
+            togglePiece(p.id);
+          };
+          pieceDiv.appendChild(checkbox);
 
-            if (p.already_in_linkedin) {
-              const tag = document.createElement("span");
-              tag.className = "tag linkedin";
-              tag.textContent = "in linkedin";
-              metaDiv.appendChild(tag);
-            } else {
-              const tag = document.createElement("span");
-              tag.className = "tag new";
-              tag.textContent = "new";
-              metaDiv.appendChild(tag);
-            }
+          const contentDiv = document.createElement("div");
+          contentDiv.className = "piece-content";
 
-            contentDiv.appendChild(metaDiv);
+          const idDiv = document.createElement("div");
+          idDiv.className = "piece-id";
+          idDiv.textContent = p.id;
+          contentDiv.appendChild(idDiv);
 
-            if (p.note) {
-              const noteDiv = document.createElement("div");
-              noteDiv.style.cssText =
-                "font-size:11px;color:var(--text-dim);margin-top:4px;font-style:italic";
-              noteDiv.textContent = p.note;
-              contentDiv.appendChild(noteDiv);
-            }
+          const textDiv = document.createElement("div");
+          textDiv.className = "piece-text";
+          textDiv.textContent = p.text;
+          contentDiv.appendChild(textDiv);
 
-            pieceDiv.appendChild(contentDiv);
-            catDiv.appendChild(pieceDiv);
+          const metaDiv = document.createElement("div");
+          metaDiv.className = "piece-meta";
+
+          for (const r of p.target_role || []) {
+            const tag = document.createElement("span");
+            tag.className = "tag role";
+            tag.textContent = r.replace("_", " ");
+            metaDiv.appendChild(tag);
           }
 
-          fragment.appendChild(catDiv);
+          if (p.has_metrics) {
+            const tag = document.createElement("span");
+            tag.className = "tag metrics";
+            tag.textContent = "has metrics";
+            metaDiv.appendChild(tag);
+          }
+
+          if (p.already_in_linkedin) {
+            const tag = document.createElement("span");
+            tag.className = "tag linkedin";
+            tag.textContent = "in linkedin";
+            metaDiv.appendChild(tag);
+          } else {
+            const tag = document.createElement("span");
+            tag.className = "tag new";
+            tag.textContent = "new";
+            metaDiv.appendChild(tag);
+          }
+
+          contentDiv.appendChild(metaDiv);
+
+          if (p.note) {
+            const noteDiv = document.createElement("div");
+            noteDiv.style.cssText =
+              "font-size:11px;color:var(--text-dim);margin-top:4px;font-style:italic";
+            noteDiv.textContent = p.note;
+            contentDiv.appendChild(noteDiv);
+          }
+
+          pieceDiv.appendChild(contentDiv);
+          catDiv.appendChild(pieceDiv);
         }
 
-        el.replaceChildren(fragment);
+        fragment.appendChild(catDiv);
       }
 
-      function escapeHtml(text) {
-        return text
-          .replace(/&/g, "&amp;")
-          .replace(/</g, "&lt;")
-          .replace(/>/g, "&gt;")
-          .replace(/"/g, "&quot;");
-      }
+      el.replaceChildren(fragment);
+    }
 
-      function togglePiece(id) {
-        if (state.selected.has(id)) {
-          state.selected.delete(id);
-        } else {
-          state.selected.add(id);
-        }
-        saveSelections();
-        renderPieces();
-      }
+    function escapeHtml(text) {
+      return text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
 
-      function selectAllInCategory(cat) {
-        const pieces = getAllPieces().filter((p) => p.category === cat);
-        for (const p of pieces) state.selected.add(p.id);
-        saveSelections();
-        renderPieces();
+    function togglePiece(id) {
+      if (state.selected.has(id)) {
+        state.selected.delete(id);
+      } else {
+        state.selected.add(id);
       }
+      saveSelections();
+      renderPieces();
+    }
 
-      function deselectAllInCategory(cat) {
-        const pieces = getAllPieces().filter((p) => p.category === cat);
-        for (const p of pieces) state.selected.delete(p.id);
-        saveSelections();
-        renderPieces();
-      }
+    function selectAllInCategory(cat) {
+      const pieces = getAllPieces().filter((p) => p.category === cat);
+      for (const p of pieces) state.selected.add(p.id);
+      saveSelections();
+      renderPieces();
+    }
 
-      // ponytail: naive heuristic score; tune weights when pick quality disappoints
-      function suggestFive() {
-        const pool = state.roleFilter
-          ? getAllPieces().filter(
-              (p) => p.target_role && p.target_role.includes(state.roleFilter),
+    function deselectAllInCategory(cat) {
+      const pieces = getAllPieces().filter((p) => p.category === cat);
+      for (const p of pieces) state.selected.delete(p.id);
+      saveSelections();
+      renderPieces();
+    }
+
+    // ponytail: naive heuristic score; tune weights when pick quality disappoints
+    function suggestFive() {
+      const pool = state.roleFilter
+        ? getAllPieces().filter(
+          (p) => p.target_role && p.target_role.includes(state.roleFilter),
+        )
+        : getAllPieces();
+      const scored = pool
+        .map((p) => ({
+          p,
+          score:
+            (p.has_metrics ? 2 : 0) +
+            (["achievements", "ai_enablement", "manager_feedback"].includes(
+              p.category,
             )
-          : getAllPieces();
-        const scored = pool
-          .map((p) => ({
-            p,
-            score:
-              (p.has_metrics ? 2 : 0) +
-              (["achievements", "ai_enablement", "manager_feedback"].includes(
-                p.category,
-              )
-                ? 1
-                : 0),
-          }))
-          .sort((a, b) => b.score - a.score || a.p.id.localeCompare(b.p.id));
-        for (const { p } of scored.slice(0, 5)) state.selected.add(p.id);
-        saveSelections();
-        renderPieces();
-      }
+              ? 1
+              : 0),
+        }))
+        .sort((a, b) => b.score - a.score || a.p.id.localeCompare(b.p.id));
+      for (const {p} of scored.slice(0, 5)) state.selected.add(p.id);
+      saveSelections();
+      renderPieces();
+    }
 
-      function clearAll() {
-        state.selected.clear();
-        saveSelections();
-        renderPieces();
-      }
+    function clearAll() {
+      state.selected.clear();
+      saveSelections();
+      renderPieces();
+    }
 
-      function saveSelections() {
-        localStorage.setItem(
-          "pieces-explorer-selections",
-          JSON.stringify([...state.selected]),
-        );
-      }
+    function saveSelections() {
+      localStorage.setItem(
+        "pieces-explorer-selections",
+        JSON.stringify([...state.selected]),
+      );
+    }
 
-      function updateAll() {
-        state.search = document.getElementById("search").value;
-        state.categoryFilter = document.getElementById("categoryFilter").value;
-        state.roleFilter = document.getElementById("roleFilter").value;
-        state.sortBy = document.getElementById("sortBy").value;
-        renderPieces();
-      }
+    function updateAll() {
+      state.search = document.getElementById("search").value;
+      state.categoryFilter = document.getElementById("categoryFilter").value;
+      state.roleFilter = document.getElementById("roleFilter").value;
+      state.sortBy = document.getElementById("sortBy").value;
+      renderPieces();
+    }
 
-      // Build markdown output
-      function buildMarkdown() {
-        const pieces = getAllPieces().filter((p) => state.selected.has(p.id));
-        if (pieces.length === 0) return "No pieces selected.";
+    // Build markdown output
+    function buildMarkdown() {
+      const pieces = getAllPieces().filter((p) => state.selected.has(p.id));
+      if (pieces.length === 0) return "No pieces selected.";
 
-        const groups = groupByCategory(pieces);
-        let md = "";
+      const groups = groupByCategory(pieces);
+      let md = "";
 
-        for (const cat of CATEGORY_ORDER) {
-          if (!groups[cat] || groups[cat].length === 0) continue;
-          const label = CATEGORY_LABELS[cat] || cat;
-          md += `## ${label}\n\n`;
-          for (const p of groups[cat]) {
-            md += `- ${p.text}\n`;
-          }
-          md += "\n";
+      for (const cat of CATEGORY_ORDER) {
+        if (!groups[cat] || groups[cat].length === 0) continue;
+        const label = CATEGORY_LABELS[cat] || cat;
+        md += `## ${label}\n\n`;
+        for (const p of groups[cat]) {
+          md += `- ${p.text}\n`;
         }
-
-        return md.trim();
+        md += "\n";
       }
 
-      // Build prompt output
-      function buildPrompt() {
-        const md = buildMarkdown();
-        if (md === "No pieces selected.") return md;
+      return md.trim();
+    }
 
-        // ponytail: role filter drives targeting; per-JD keywords if generic prompts disappoint
-        const role = state.roleFilter;
-        const def =
-          role && state.data.canonical_roles
-            ? state.data.canonical_roles[role]
-            : null;
-        const target = def
-          ? `I am targeting a ${role.replace(/_/g, " ")} role: ${def}`
-          : `I am targeting ${TARGET_ROLE_CONTEXT}`;
-        return `Context: ${target}. Here are selected pieces from my work experience:
+    // Build prompt output
+    function buildPrompt() {
+      const md = buildMarkdown();
+      if (md === "No pieces selected.") return md;
+
+      // ponytail: role filter drives targeting; per-JD keywords if generic prompts disappoint
+      const role = state.roleFilter;
+      const def =
+        role && state.data.canonical_roles
+          ? state.data.canonical_roles[role]
+          : null;
+      const target = def
+        ? `I am targeting a ${role.replace(/_/g, " ")} role: ${def}`
+        : `I am targeting ${TARGET_ROLE_CONTEXT}`;
+      return `Context: ${target}. Here are selected pieces from my work experience:
 
 ${md}
 
@@ -997,250 +963,251 @@ ${md}
 Task: [DESCRIBE WHAT YOU WANT TO DO WITH THESE PIECES]
 
 For example: "Draft a LinkedIn work experience section using these pieces" or "Select the best 5 pieces for a ${role ? role.replace(/_/g, " ") : "Test Automation Engineer"} cover letter"`;
-      }
+    }
 
-      // Copy functions
-      function copyToClipboard(text) {
-        navigator.clipboard.writeText(text).then(() => {
-          showCopied();
-        });
-      }
+    // Copy functions
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        showCopied();
+      });
+    }
 
-      function showCopied() {
-        const el = document.getElementById("copiedMsg");
-        el.classList.add("show");
-        setTimeout(() => el.classList.remove("show"), 2000);
-      }
+    function showCopied() {
+      const el = document.getElementById("copiedMsg");
+      el.classList.add("show");
+      setTimeout(() => el.classList.remove("show"), 2000);
+    }
 
-      function copyMarkdown() {
+    function copyMarkdown() {
+      const md = buildMarkdown();
+      if (md === "No pieces selected.") {
+        alert("No pieces selected.");
+        return;
+      }
+      copyToClipboard(md);
+      showPreview(md, "Markdown Output");
+    }
+
+    function copyPrompt() {
+      const prompt = buildPrompt();
+      if (prompt === "No pieces selected.") {
+        alert("No pieces selected.");
+        return;
+      }
+      copyToClipboard(prompt);
+      showPreview(prompt, "Prompt Output");
+    }
+
+    function exportMarkdown() {
+      const md = buildMarkdown();
+      if (md === "No pieces selected.") {
+        alert("No pieces selected.");
+        return;
+      }
+      const blob = new Blob([md], {type: "text/markdown"});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "selected-pieces.md";
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    // Preview
+    function showPreview(text, label) {
+      const preview = document.getElementById("preview");
+      const content = document.getElementById("previewContent");
+      const label_el = document.getElementById("previewLabel");
+      label_el.textContent = label;
+      content.textContent = text;
+      preview.classList.add("show");
+    }
+
+    function togglePreview() {
+      const preview = document.getElementById("preview");
+      if (!preview.classList.contains("show")) {
         const md = buildMarkdown();
-        if (md === "No pieces selected.") {
-          alert("No pieces selected.");
-          return;
-        }
-        copyToClipboard(md);
-        showPreview(md, "Markdown Output");
-      }
-
-      function copyPrompt() {
-        const prompt = buildPrompt();
-        if (prompt === "No pieces selected.") {
-          alert("No pieces selected.");
-          return;
-        }
-        copyToClipboard(prompt);
-        showPreview(prompt, "Prompt Output");
-      }
-
-      function exportMarkdown() {
-        const md = buildMarkdown();
-        if (md === "No pieces selected.") {
-          alert("No pieces selected.");
-          return;
-        }
-        const blob = new Blob([md], { type: "text/markdown" });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = "selected-pieces.md";
-        a.click();
-        URL.revokeObjectURL(url);
-      }
-
-      // Preview
-      function showPreview(text, label) {
-        const preview = document.getElementById("preview");
         const content = document.getElementById("previewContent");
-        const label_el = document.getElementById("previewLabel");
-        label_el.textContent = label;
-        content.textContent = text;
+        const labelEl = document.getElementById("previewLabel");
+        labelEl.textContent = "Markdown Output";
+        content.textContent = md;
         preview.classList.add("show");
+      } else {
+        preview.classList.remove("show");
       }
+    }
 
-      function togglePreview() {
-        const preview = document.getElementById("preview");
-        if (!preview.classList.contains("show")) {
-          const md = buildMarkdown();
-          const content = document.getElementById("previewContent");
-          const labelEl = document.getElementById("previewLabel");
-          labelEl.textContent = "Markdown Output";
-          content.textContent = md;
-          preview.classList.add("show");
-        } else {
-          preview.classList.remove("show");
-        }
-      }
-
-      // File loading
-      function handleFileUpload(event) {
-        const file = event.target.files[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          try {
-            const data = JSON.parse(e.target.result);
-            loadNewData(data, file.name);
-          } catch (err) {
-            alert("Invalid JSON: " + err.message);
-          }
-        };
-        reader.readAsText(file);
-      }
-
-      function showPasteModal() {
-        document.getElementById("pasteModal").classList.add("show");
-      }
-
-      function closePasteModal() {
-        document.getElementById("pasteModal").classList.remove("show");
-      }
-
-      function loadPastedJSON() {
-        const text = document.getElementById("pasteArea").value.trim();
-        if (!text) return;
+    // File loading
+    function handleFileUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
         try {
-          const data = JSON.parse(text);
-          loadNewData(data, "pasted-json");
-          closePasteModal();
+          const data = JSON.parse(e.target.result);
+          loadNewData(data, file.name);
         } catch (err) {
           alert("Invalid JSON: " + err.message);
         }
+      };
+      reader.readAsText(file);
+    }
+
+    function showPasteModal() {
+      document.getElementById("pasteModal").classList.add("show");
+    }
+
+    function closePasteModal() {
+      document.getElementById("pasteModal").classList.remove("show");
+    }
+
+    function loadPastedJSON() {
+      const text = document.getElementById("pasteArea").value.trim();
+      if (!text) return;
+      try {
+        const data = JSON.parse(text);
+        loadNewData(data, "pasted-json");
+        closePasteModal();
+      } catch (err) {
+        alert("Invalid JSON: " + err.message);
+      }
+    }
+
+    function loadNewData(data, filename) {
+      // Validate structure
+      if (!data || typeof data !== "object") {
+        alert("JSON must be an object with categories as top-level keys.");
+        return;
       }
 
-      function loadNewData(data, filename) {
-        // Validate structure
-        if (!data || typeof data !== "object") {
-          alert("JSON must be an object with categories as top-level keys.");
-          return;
+      const cats = Object.keys(data).filter((k) => k !== "context");
+      if (cats.length === 0) {
+        alert(
+          'No categories found in JSON. Expected keys like "achievements", "ai_enablement", etc.',
+        );
+        return;
+      }
+
+      state.data = data;
+      state.selected.clear();
+      saveSelections();
+
+      // Update category filter dropdown
+      const catFilter = document.getElementById("categoryFilter");
+      catFilter.replaceChildren(
+        Object.assign(document.createElement("option"), {
+          value: "",
+          textContent: "All categories",
+        }),
+      );
+      for (const cat of cats) {
+        const label = cat
+          .replace(/_/g, " ")
+          .replace(/\b\w/g, (l) => l.toUpperCase());
+        const opt = document.createElement("option");
+        opt.value = cat;
+        opt.textContent = label;
+        catFilter.appendChild(opt);
+      }
+
+      // Update CATEGORY_ORDER dynamically
+      CATEGORY_ORDER.length = 0;
+      CATEGORY_ORDER.push(...cats);
+
+      document.getElementById("fileInfo").textContent = `Loaded: ${filename}`;
+      renderPieces();
+    }
+
+    // Drag and drop
+    document.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      document.getElementById("dragOverlay").classList.add("show");
+    });
+
+    document.addEventListener("dragleave", (e) => {
+      if (e.clientX === 0 && e.clientY === 0) {
+        document.getElementById("dragOverlay").classList.remove("show");
+      }
+    });
+
+    document.addEventListener("drop", (e) => {
+      e.preventDefault();
+      document.getElementById("dragOverlay").classList.remove("show");
+      const file = e.dataTransfer.files[0];
+      if (!file || !file.name.endsWith(".json")) {
+        alert("Please drop a .json file.");
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        try {
+          const data = JSON.parse(ev.target.result);
+          loadNewData(data, file.name);
+        } catch (err) {
+          alert("Invalid JSON: " + err.message);
         }
+      };
+      reader.readAsText(file);
+    });
 
-        const cats = Object.keys(data).filter((k) => k !== "context");
-        if (cats.length === 0) {
-          alert(
-            'No categories found in JSON. Expected keys like "achievements", "ai_enablement", etc.',
-          );
-          return;
-        }
+    // Close modal on overlay click
+    document.getElementById("pasteModal").addEventListener("click", (e) => {
+      if (e.target === e.currentTarget) closePasteModal();
+    });
 
-        state.data = data;
-        state.selected.clear();
-        saveSelections();
+    function toggleTheme() {
+      document.body.classList.toggle("light");
+      const isLight = document.body.classList.contains("light");
+      localStorage.setItem("pieces-explorer-theme", isLight ? "light" : "dark");
+    }
 
-        // Update category filter dropdown
-        const catFilter = document.getElementById("categoryFilter");
-        catFilter.replaceChildren(
-          Object.assign(document.createElement("option"), {
-            value: "",
-            textContent: "All categories",
+    // Initialize
+    function init() {
+      // Populate category filter
+      const catFilter = document.getElementById("categoryFilter");
+      for (const cat of CATEGORY_ORDER) {
+        const label = CATEGORY_LABELS[cat] || cat;
+        const opt = document.createElement("option");
+        opt.value = cat;
+        opt.textContent = label;
+        catFilter.appendChild(opt);
+      }
+
+      // Restore theme (saved, else system preference)
+      const savedTheme = localStorage.getItem("pieces-explorer-theme");
+      if (
+        savedTheme === "light" ||
+        (!savedTheme &&
+          window.matchMedia("(prefers-color-scheme: light)").matches)
+      ) {
+        document.body.classList.add("light");
+      }
+
+      // Restore selections
+      const saved = localStorage.getItem("pieces-explorer-selections");
+      if (saved) {
+        try {
+          state.selected = new Set(JSON.parse(saved));
+        } catch (e) { }
+      }
+
+      if (!state.data) {
+        document.getElementById("totalCount").textContent = 0;
+        document.getElementById("piecesList").replaceChildren(
+          Object.assign(document.createElement("div"), {
+            className: "no-results",
+            textContent:
+              "No data loaded. Run `node build.mjs` to generate index.html, or drop / paste / upload a pieces JSON file.",
           }),
         );
-        for (const cat of cats) {
-          const label = cat
-            .replace(/_/g, " ")
-            .replace(/\b\w/g, (l) => l.toUpperCase());
-          const opt = document.createElement("option");
-          opt.value = cat;
-          opt.textContent = label;
-          catFilter.appendChild(opt);
-        }
-
-        // Update CATEGORY_ORDER dynamically
-        CATEGORY_ORDER.length = 0;
-        CATEGORY_ORDER.push(...cats);
-
-        document.getElementById("fileInfo").textContent = `Loaded: ${filename}`;
-        renderPieces();
+        return;
       }
 
-      // Drag and drop
-      document.addEventListener("dragover", (e) => {
-        e.preventDefault();
-        document.getElementById("dragOverlay").classList.add("show");
-      });
+      renderPieces();
+    }
 
-      document.addEventListener("dragleave", (e) => {
-        if (e.clientX === 0 && e.clientY === 0) {
-          document.getElementById("dragOverlay").classList.remove("show");
-        }
-      });
+    init();
+  </script>
+</body>
 
-      document.addEventListener("drop", (e) => {
-        e.preventDefault();
-        document.getElementById("dragOverlay").classList.remove("show");
-        const file = e.dataTransfer.files[0];
-        if (!file || !file.name.endsWith(".json")) {
-          alert("Please drop a .json file.");
-          return;
-        }
-        const reader = new FileReader();
-        reader.onload = (ev) => {
-          try {
-            const data = JSON.parse(ev.target.result);
-            loadNewData(data, file.name);
-          } catch (err) {
-            alert("Invalid JSON: " + err.message);
-          }
-        };
-        reader.readAsText(file);
-      });
-
-      // Close modal on overlay click
-      document.getElementById("pasteModal").addEventListener("click", (e) => {
-        if (e.target === e.currentTarget) closePasteModal();
-      });
-
-      function toggleTheme() {
-        document.body.classList.toggle("light");
-        const isLight = document.body.classList.contains("light");
-        localStorage.setItem("pieces-explorer-theme", isLight ? "light" : "dark");
-      }
-
-      // Initialize
-      function init() {
-        // Populate category filter
-        const catFilter = document.getElementById("categoryFilter");
-        for (const cat of CATEGORY_ORDER) {
-          const label = CATEGORY_LABELS[cat] || cat;
-          const opt = document.createElement("option");
-          opt.value = cat;
-          opt.textContent = label;
-          catFilter.appendChild(opt);
-        }
-
-        // Restore theme (saved, else system preference)
-        const savedTheme = localStorage.getItem("pieces-explorer-theme");
-        if (
-          savedTheme === "light" ||
-          (!savedTheme &&
-            window.matchMedia("(prefers-color-scheme: light)").matches)
-        ) {
-          document.body.classList.add("light");
-        }
-
-        // Restore selections
-        const saved = localStorage.getItem("pieces-explorer-selections");
-        if (saved) {
-          try {
-            state.selected = new Set(JSON.parse(saved));
-          } catch (e) {}
-        }
-
-        if (!state.data) {
-          document.getElementById("totalCount").textContent = 0;
-          document.getElementById("piecesList").replaceChildren(
-            Object.assign(document.createElement("div"), {
-              className: "no-results",
-              textContent:
-                "No data loaded. Run `node build.mjs` to generate index.html, or drop / paste / upload a pieces JSON file.",
-            }),
-          );
-          return;
-        }
-
-        renderPieces();
-      }
-
-      init();
-    </script>
-  </body>
 </html>

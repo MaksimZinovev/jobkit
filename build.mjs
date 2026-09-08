@@ -1,10 +1,10 @@
 #!/usr/bin/env node
-// Merge pieces.template.html + intellihub-extracted-pieces.json -> index.html
+// Merge pieces.template.html + experience-pieces.json -> index.html
 // Zero dependencies. Run: node build.mjs
 import { readFileSync, writeFileSync } from "node:fs";
 
 const TEMPLATE = "pieces.template.html";
-const DATA = "intellihub-extracted-pieces.json";
+const DATA = "experience-pieces.json";
 const OUTPUT = "index.html";
 const TOKEN = "/*__PIECES_DATA__*/ null";
 
