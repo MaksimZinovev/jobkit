@@ -21,6 +21,9 @@
         fill: #e6e6e6 !important;
         font-weight: 500;
     }
+    /* Career-path gantt readability (text + scale only — bar fill is overridden
+       via Mermaid themeCSS in the %%{init}%% directive because CSS in the page
+       <head> cannot reach SVG rect fills in this rendering pipeline). */
 
 .function {stat}
     value label:
@@ -58,7 +61,7 @@ Waitara NSW 2077 • [mzn@fastmail.com](mailto:mzn@fastmail.com) • 0415 182 76
 
 .container fullwidth:{yes}
     .mermaid
-        %%{init: {"theme":"dark", "gantt": {"fontSize": 18, "sectionFontSize": 20, "barHeight": 36}}}%%
+        %%{init: {"theme":"dark", "themeCSS": "rect.task { fill: #3b6e8f !important; stroke: #5a93b5 !important; }", "gantt": {"fontSize": 18, "sectionFontSize": 20, "barHeight": 36}}}%%
         gantt
             title 2019 to 2026, all roles Sydney-based
             dateFormat YYYY-MM
