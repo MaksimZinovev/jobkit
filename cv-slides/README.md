@@ -30,6 +30,7 @@ Open the `index.html` in the output folder it prints.
 - A line starting `.github/...` parses as a function call; use backticks.
 - No sidebar from `.doctype {docs}` alone; the docs library plus `_nav.qd` adds it.
 - A Mermaid gantt on slides needs `%%{init}%%` with fontSize and barHeight, or labels are tiny.
+- Mermaid still draws gantt labels at `#d3d3d3`, hard-codes 10px axis years, and the slides layout caps diagrams at 50vh. The `.css` block at the top of `src/cv-slides.qd` overrides all three; keep it in the source, not in `theme/`, or recompiles drop it.
 - Wiki search fetches `search-index.json`; it fails silently on `file://`, navigation still works.
 - The output folder is named after `.docname`; copy its contents as needed.
 - Wiki subpages show the title twice. Cosmetic.
