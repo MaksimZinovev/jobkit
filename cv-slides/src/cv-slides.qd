@@ -24,6 +24,13 @@
     /* Career-path gantt readability (text + scale only — bar fill is overridden
        via Mermaid themeCSS in the %%{init}%% directive because CSS in the page
        <head> cannot reach SVG rect fills in this rendering pipeline). */
+    /* Toolkit snapshot icons: inline tech logos at the top of each toolkit box. */
+    .quarkdown.quarkdown-slides .box img {
+        height: 36px;
+        width: auto;
+        margin: 0 12px 8px 0;
+        vertical-align: middle;
+    }
 
 .function {stat}
     value label:
@@ -146,12 +153,18 @@ Versatile 40/20/40 split: test automation, QA, manual testing.
 
 .grid columns:{3} gap:{18px}
     .box {Test automation}
+        !(36)[Playwright](@/icons/playwright.svg) !(36)[pytest](@/icons/pytest.svg) !(36)[Jenkins](@/icons/jenkins.svg) !(36)[Azure DevOps](@/icons/azure.svg) !(36)[GitLab](@/icons/gitlab.svg) !(36)[Postman](@/icons/postman.svg)
+
         Web UI, REST API, BDD; Playwright/TypeScript, pytest, TestComplete, Postman, DBeaver; Jenkins, Azure DevOps, GitLab.
 
     .box {AI practice}
+        !(36)[GitHub Copilot](@/icons/github.svg) !(36)[Google AI Studio](@/icons/google.svg)
+
         GitHub Copilot: Skills development, copilot-instructions.md, PR review agent. ChatGPT, Claude, Google AI Studio, Cline.
 
     .box {Languages and data}
+        !(36)[TypeScript](@/icons/typescript.svg) !(36)[Python](@/icons/python.svg) !(36)[JavaScript](@/icons/javascript.svg) !(36)[HTML](@/icons/html5.svg) !(36)[CSS](@/icons/css3.svg) !(36)[Git](@/icons/git.svg)
+
         TypeScript, Python, JavaScript; SQL; HTML and CSS basics. Azure, GitLab, GitHub.
 
 <<<
