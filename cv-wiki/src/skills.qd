@@ -1,0 +1,25 @@
+.docname {Skills}
+.include {docs}
+
+# Skills
+
+| Skills | Test automation: web UI, REST API, BDD; exposure to unit and performance testing. Functional, exploratory, regression, end-to-end, integration, security and accessibility testing. Defect and test case management. |
+|---|---|
+| Testing tools | VS Code, Azure DevOps, Azure Portal, Atlassian Jira, Confluence, GitLab, Jenkins, browser developer tools, Playwright/TypeScript, Postman, DBeaver, TestComplete, pytest; familiar with Cypress.io. |
+| AI | Prompt engineering, basic and advanced techniques. GitHub Copilot (Copilot Skills development, copilot-instructions.md, AI-powered PR review agent), ChatGPT, Claude, Google AI Studio, Cline. |
+| Languages | JavaScript, TypeScript, Python; familiar with HTML, CSS, SQL. |
+| Other tools | Git, GitHub, Unix command line, Microsoft package, SharePoint, Power Automate, WordPress, Figma, HubSpot, VPN. Familiar with Power BI, Databricks, Microsoft D365, AWS. |
+
+## By layer
+
+.grid columns:{3} gap:{18px}
+    .box {Frontend}
+        Playwright/TypeScript UI suites, BDD scenarios, browser developer tools.
+
+    .box {API and services}
+        Postman collections and monitors, REST and GraphQL, pytest-based API checks.
+
+    .box {Data and CI}
+        SQL via DBeaver, Azure Test Plans, Jenkins pipelines, GitLab CI.
+
+> Note: three frameworks at Intellihub: IWS (Python), SmartCore (TypeScript), IMDM (Java).

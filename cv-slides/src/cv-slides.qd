@@ -1,0 +1,160 @@
+.docname {Maksim Zinovev — Career Deck}
+.doctype {slides}
+.doclang {English}
+.theme {darko} layout:{minimal}
+
+.function {stat}
+    value label:
+    .column
+        ## .value
+        .label
+
+# Maksim Zinovev
+
+### Test Automation Engineer, moving QA into the AI era
+
+Waitara NSW 2077 • [mzn@fastmail.com](mailto:mzn@fastmail.com) • 0415 182 769
+
+[LinkedIn](https://www.linkedin.com/in/maksimzinovevau/) • [GitHub](https://github.com/MaksimZinovev) • [clickworks.me](http://clickworks.me/)
+
+.box {How this deck was made} type:{tip}
+    One Quarkdown `.qd` source, compiled to interactive slides: fragments reveal step by step, the timeline is a live Mermaid diagram, the stat tiles are a 6-line custom function.
+
+<<<
+
+# At a glance
+
+.grid columns:{3} alignment:{spaceevenly} gap:{18px}
+    .stat {7 yrs} {in QA and test automation, 2019 to 2026}
+    .stat {4 companies} {from startup to global SaaS to #1 in ANZ smart metering}
+    .stat {3 frameworks} {IWS (Python), SmartCore (TypeScript), IMDM (Java) at Intellihub}
+
+    .stat {50+} {Playwright scenarios built from scratch at Figtree}
+    .stat {5 Copilot Skills} {shared and used by colleagues in daily work}
+    .stat {8 sessions} {monthly AI knowledge-sharing; teammates now present their own techniques}
+
+<<<
+
+# Career path
+
+.container fullwidth:{yes}
+    .mermaid
+        %%{init: {"theme":"dark", "gantt": {"fontSize": 16, "sectionFontSize": 18, "barHeight": 36}}}%%
+        gantt
+            title 2019 to 2026, all roles Sydney-based
+            dateFormat YYYY-MM
+            axisFormat %Y
+            section Testing career
+            Aerofiler, part-time tester              :2019-08, 2021-09
+            WYWM, QA Test Analyst                    :2021-11, 2023-04
+            WYWM, Software QA Engineer               :2023-04, 2023-07
+            Figtree Systems, Test Automation         :2023-11, 2025-07
+            Intellihub, Automation Engineer          :2025-08, 2026-09
+
+<<<
+
+# Intellihub, 08/2025 - 09/2026
+
+The #1 smart-meter provider in ANZ: meter data for 40+ electricity retailers, 99.5% delivered reliably. BDD test automation across IWS (Python), SmartCore (TypeScript on Azure and D365) and IMDM (Java), plus code review across all three frameworks.
+
+.fragment
+    .box {First BDD scenarios in the daily CI pipeline} type:{tip}
+        Scenarios used to run on demand. Now the team gets constant daily feedback.
+
+.fragment
+    .box {Automated monitoring for prod and test environments} type:{note}
+        Jenkins pipelines, Python checks, email alerts and build badges.
+
+.fragment
+    .box {Failure-cause analysis tool} type:{tip}
+        Analyses daily automation results, classifies likely causes, suggests fixes. Human review before anything is acted on.
+
+<<<
+
+# AI enablement across the team
+
+.grid columns:{2} gap:{18px}
+    .box {5 shared GitHub Copilot Skills} type:{note}
+        Covering IWS domain knowledge, task creation and AI skill best practices. Teammates use them daily.
+
+    .box {AI-powered PR review agent} type:{note}
+        Structured verdict, summary and suggestions per review. Estimated 5 to 10% time saved per review.
+
+    .box {copilot-instructions.md (Agents.md)} type:{note}
+        Gives AI agents a repo map at session start, in both frameworks.
+
+    .box {Monthly knowledge-sharing sessions} type:{note}
+        8 sessions so far; other team members now present their own techniques.
+
+<<<
+
+# Figtree Systems, 11/2023 - 07/2025
+
+Versatile 40/20/40 split: test automation, QA, manual testing.
+
+.fragment
+    .box {Playwright UI suite, from scratch} type:{tip}
+        50+ automated scenarios, saving 4 to 6 hours of manual work per regression run.
+
+.fragment
+    .box {QA process maturity} type:{note}
+        Led workshops on exploratory testing and RCA guides, standardised defect reporting, rewrote acceptance criteria.
+
+.fragment
+    .box {AI initiative} type:{note}
+        Secured leadership approval for privacy-aware AI open-source tooling: research, evaluation, risks and mitigations.
+
+<<<
+
+# Building in the open
+
+.grid columns:{3} gap:{18px}
+    .box {groundcrew, TypeScript} type:{note}
+        CI monitoring bot: GitHub Actions results become plain-language failure summaries in Telegram. Built with Ax (DSPy), GitHub Actions, Telegram API, Cloudflare Browser.
+
+    .box {Docfence, Python} type:{note}
+        CLI that validates markdown spec docs against rules embedded in the document: catches TODOs, broken links and missing sections that AI assistants introduce.
+
+    .box {compass-skills} type:{note}
+        AI agent skills guiding testers, QA engineers and product managers through domain mapping, BDD scenario building and system modelling.
+
+<<<
+
+# Toolkit snapshot
+
+.grid columns:{3} gap:{18px}
+    .box {Test automation}
+        Web UI, REST API, BDD; Playwright/TypeScript, pytest, TestComplete, Postman, DBeaver; Jenkins, Azure DevOps, GitLab.
+
+    .box {AI practice}
+        GitHub Copilot: Skills development, copilot-instructions.md, PR review agent. ChatGPT, Claude, Google AI Studio, Cline.
+
+    .box {Languages and data}
+        TypeScript, Python, JavaScript; SQL; HTML and CSS basics. Azure, GitLab, GitHub.
+
+<<<
+
+# Credentials
+
+- **ISTQB Foundation Level** (2019)
+- **AZ-900, Microsoft Azure Fundamentals** (2023)
+- Continuous Testing with Azure DevOps; Introduction to Playwright with TypeScript (2023)
+- Rapid Software Testing Explored (2021)
+- Postman Fundamentals, Source Control for Test Automation with Git (2023)
+
+.box {Education} type:{note}
+    Bachelor of Engineering in Electrical Engineering, Omsk State Technical University.
+
+Australian citizenship.
+
+<<<
+
+# Let's talk
+
+Waitara NSW 2077, Sydney
+
+[mzn@fastmail.com](mailto:mzn@fastmail.com) • 0415 182 769
+
+[linkedin.com/in/maksimzinovevau](https://www.linkedin.com/in/maksimzinovevau/) • [github.com/MaksimZinovev](https://github.com/MaksimZinovev) • [clickworks.me](http://clickworks.me/)
+
+> Tip: this deck is one `.qd` file. Same source can compile to PDF, a paged document or a docs site with search.

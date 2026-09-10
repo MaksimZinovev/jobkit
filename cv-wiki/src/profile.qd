@@ -1,0 +1,23 @@
+.docname {Profile}
+.include {docs}
+
+# Profile
+
+Software automation tester with 5+ years of experience across testing, automation and QA, certified in ISTQB and AZ-900. Solid skills in automated and manual testing of web applications: UI and API test automation, exposure to performance and unit testing.
+
+Most recently at Intellihub: designed BDD test automation across Python and TypeScript frameworks and led AI enablement, from agentic engineering design patterns to shared Copilot Skills, an AI-powered PR review agent and monthly knowledge-sharing sessions.
+
+.grid columns:{2} gap:{18px}
+    .box {Location and status}
+        Waitara, NSW 2077. Australian citizenship.
+
+    .box {Contact}
+        [mzn@fastmail.com](mailto:mzn@fastmail.com) • 0415 182 769
+
+    .box {Profiles}
+        [LinkedIn](https://www.linkedin.com/in/maksimzinovevau/) • [GitHub](https://github.com/MaksimZinovev) • [clickworks.me](http://clickworks.me/)
+
+    .box {Current focus}
+        Test automation as a craft, with AI-assisted engineering woven into daily QA practice.
+
+> Tip: use the search bar in the header to find anything in this wiki, for example *RCA* or *Jenkins*.

@@ -1,0 +1,15 @@
+.docname {Open source}
+.include {docs}
+
+# GitHub Highlights
+
+[github.com/MaksimZinovev](https://github.com/MaksimZinovev)
+
+| Project | What it does |
+|---|---|
+| groundcrew (TypeScript) | CI monitoring bot that analyses GitHub Actions results and sends plain-language failure summaries to Telegram. Built with Ax (DSPy), GitHub Actions, Telegram API, Cloudflare Browser. |
+| Docfence (Python) | CLI tool that validates markdown spec docs against rules embedded in the document. Catches issues AI assistants introduce: TODOs, broken links, missing sections. |
+| compass-skills | A set of AI agent skills for testers, QA engineers and product managers that guide teams through domain knowledge mapping, BDD scenario building and system modelling. |
+
+.box {Why this matters for QA teams} type:{tip}
+    Each project automates a piece of the feedback loop: CI results become readable summaries, spec docs police themselves, and teams get reusable AI skills for testing practice.

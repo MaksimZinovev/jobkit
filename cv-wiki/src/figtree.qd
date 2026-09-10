@@ -1,0 +1,21 @@
+.docname {Figtree Systems}
+.include {docs}
+
+# QA Product Tester | Test Automation | Figtree Systems
+
+**11/2023 - 07/2025** • Sydney, Australia
+
+*Figtree Systems is a global provider of business management software specialising in insurance, claims, risk, safety and fleet management. With 40+ years in the market, it supports 150+ organisations globally across four countries, delivering cloud-based SaaS solutions to insurers, government and enterprise customers.*
+
+Versatile role covering test automation, QA and manual testing activities (40/20/40 split). Gained broader experience with software development tools, including Atlassian Jira, Confluence and GitLab. Played a key role in regression testing: planning, executing, and reporting test outcomes and defects. Contributed to strengthening the team's quality practices by promoting root cause analysis (RCA), rewriting acceptance criteria, and leading workshops on exploratory testing, test coverage and effective bug reporting. Helped establish a unit testing framework using Vitest and TypeScript, leveraging experience with AI tools and access to GitHub Copilot. Actively supported team upskilling through practical examples, coaching and toolkits.
+
+## Highlights
+
+.box {UI automation, built from scratch} type:{tip}
+    Implemented a UI test automation framework and deployed a Playwright suite covering 50+ scenarios, leading the work and contributing as an automation engineer, saving 4 to 6 hours of manual work per regression run.
+
+.box {QA maturity} type:{note}
+    Improved QA process maturity by leading workshops and creating exploratory testing and RCA guides, metrics, and standardised defect reporting across the team.
+
+.box {AI initiative} type:{note}
+    Secured leadership approval for privacy-aware AI open-source solutions tailored to internal use, by delivering a proposal and accompanying documentation covering research, evaluation, recommendations, risks and mitigations.

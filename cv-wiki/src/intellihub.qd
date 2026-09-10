@@ -1,0 +1,31 @@
+.docname {Intellihub}
+.include {docs}
+
+# Automation Engineer | Intellihub Group
+
+**08/2025 - 09/2026** • Sydney, Australia (Hybrid)
+
+*Intellihub is a major Australian energy technology company providing smart-metering and related energy solutions across Australia and New Zealand. In 2024 it supported 40+ electricity retailers; by 2026 it had become the #1 smart-meter provider in ANZ, delivering 99.5% of meter data reliably.*
+
+Test automation role across two platforms: IWS (Intellihub Web Services), a Python-based platform used by operations for service order management, reporting and user access; and SmartCore, a new TypeScript system on Microsoft Azure and D365, designed to replace IWS. Design and maintain BDD test scenarios, enhance the automation frameworks, and review PRs with feedback on code quality and test coverage. Contribute across three frameworks in total, including the Java-based IMDM. Report to the Test Automation Lead, work alongside two offshore automation engineers.
+
+.mermaid caption:{How the frameworks fit together.}
+    flowchart LR
+        QA[Test automation, BDD] --> IWS[IWS, Python]
+        QA --> SC[SmartCore, TypeScript on Azure and D365]
+        QA --> IMDM[IMDM, Java]
+        SC -->|designed to replace| IWS
+
+## Highlights
+
+.box {First BDD scenarios in the daily CI pipeline} type:{tip}
+    Before this, scenarios ran only on demand; now they run daily, giving the team constant feedback.
+
+.box {Automated monitoring for production and test environments} type:{note}
+    Jenkins pipelines, Python scripts, scheduled checks, email alerts and build badges.
+
+.box {Failure-cause analysis tool} type:{tip}
+    Analyses daily automation execution results, identifies likely failure causes and suggests solutions, with a human review step before anything is acted on.
+
+.box {Lead AI enablement across the team} type:{note}
+    Monthly knowledge-sharing sessions on practical AI-assisted development (other team members now present their own techniques); `.github/copilot-instructions.md` (Agents.md) files giving AI agents a repo map at session start; 5 shared GitHub Copilot Skills used by colleagues in daily work; an AI-powered PR review agent saving an estimated 5 to 10% time per review.

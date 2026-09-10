@@ -1,0 +1,22 @@
+.docname {WithYouWithMe}
+.include {docs}
+
+# Quality Assurance Test Analyst | WithYouWithMe
+
+**11/2021 - 04/2023** • Sydney, Australia
+
+*WithYouWithMe builds new talent from overlooked communities, solving digital skills shortages.*
+
+Mid-level test analyst role covering a wide range of testing activities: test planning, test case management (Azure Test Plans), defect management, working closely with the development team and stakeholders, analysing requirements. Collaborated with engineers from various teams, including DevOps and Data Analytics. As a member of the QA team, ensured the quality of a web application with B2C and B2B users across 3 production instances in Australia, North America and the UK. Expanded web UI testing skills and gained experience working with API and database layers, testing Azure Functions. Contributed to challenging projects such as localisation testing, migration of data from AWS to Azure storage, and testing an LMS (WordPress) with 50+ courses.
+
+.box {Highlights} type:{tip}
+    Microsoft Azure Fundamentals (AZ-900) certification. Played one of the key roles in establishing the team's test management system in Azure DevOps: developed from scratch and maintained a comprehensive regression test suite for manual testing with 300+ tests. Introduced the Common Vulnerability Scoring System into team practices to improve security issue prioritisation. Acknowledged as a vital contributor to QA team documentation and financially awarded by the company.
+
+# Software QA Engineer | WithYouWithMe
+
+**04/2023 - 07/2023** • Sydney, Australia
+
+Primary focus on manual testing: functional, security, accessibility, usability and exploratory testing of a web application. Recognised as a dedicated tester with a strong desire to learn, consistently providing clear and detailed defect reports. Expanded experience in test automation with TestComplete and Postman: defining testing scope, prioritising, designing automated tests, setting up a TestComplete project, submitting automation PRs with Git and Azure DevOps, integrating tests into Azure CI/CD, creating documentation, reporting progress.
+
+.box {Highlights} type:{tip}
+    One of the key roles in the team's transition to test automation: contributed to setting up and creating from scratch an automated test suite (TestComplete) for production validation testing. Introduced Postman monitors for faster feedback across multiple production and test environments via scheduled API test execution. Created a Postman collection with REST API and GraphQL requests that sped up test data preparation.
