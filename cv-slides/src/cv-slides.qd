@@ -31,6 +31,16 @@
         margin: 0 12px 8px 0;
         vertical-align: middle;
     }
+    /* Closing-slide signature card: soft card look on the dark theme. Scoped by
+       the unique filename so the mermaid figure and .box icon imgs are untouched.
+       Original size preserved (max-width is an inert overflow clamp at the
+       card's 400px natural width). */
+    .quarkdown.quarkdown-slides img[src*="email-signature"] {
+        border-radius: 10px;
+        box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+        max-width: 100%;
+        height: auto;
+    }
 
 .function {stat}
     value label:
@@ -186,10 +196,15 @@ Australian citizenship.
 
 # Let's talk
 
-Waitara NSW 2077, Sydney
+.grid columns:{2} alignment:{spaceevenly} gap:{28px}
+    .column
+        Waitara NSW 2077, Sydney
 
-[mzn@fastmail.com](mailto:mzn@fastmail.com) • 0415 182 769
+        [mzn@fastmail.com](mailto:mzn@fastmail.com) • 0415 182 769
 
-[linkedin.com/in/maksimzinovevau](https://www.linkedin.com/in/maksimzinovevau/) • [github.com/MaksimZinovev](https://github.com/MaksimZinovev) • [clickworks.me](http://clickworks.me/)
+        [linkedin.com/in/maksimzinovevau](https://www.linkedin.com/in/maksimzinovevau/) • [github.com/MaksimZinovev](https://github.com/MaksimZinovev) • [clickworks.me](http://clickworks.me/)
+
+    .column
+        ![Maksim Zinovev contact card: photo, roles, email, phone and links](@/assets/email-signature.png)
 
 > Tip: this deck is one `.qd` file. Same source can compile to PDF, a paged document or a docs site with search.
