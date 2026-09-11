@@ -196,15 +196,13 @@ Australian citizenship.
 
 # Let's talk
 
-.grid columns:{2} alignment:{spaceevenly} gap:{28px}
-    .column
-        Waitara NSW 2077, Sydney
+.center
+    Waitara NSW 2077, Sydney
 
-        [mzn@fastmail.com](mailto:mzn@fastmail.com) • 0415 182 769
+    [mzn@fastmail.com](mailto:mzn@fastmail.com) • 0415 182 769
 
-        [linkedin.com/in/maksimzinovevau](https://www.linkedin.com/in/maksimzinovevau/) • [github.com/MaksimZinovev](https://github.com/MaksimZinovev) • [clickworks.me](http://clickworks.me/)
+    [linkedin.com/in/maksimzinovevau](https://www.linkedin.com/in/maksimzinovevau/) • [github.com/MaksimZinovev](https://github.com/MaksimZinovev) • [clickworks.me](http://clickworks.me/)
 
-    .column
-        ![Maksim Zinovev contact card: photo, roles, email, phone and links](@/assets/email-signature.png)
+    !(400)[Maksim Zinovev contact card: photo, roles, email, phone and links](@/assets/email-signature.png)
 
 > Tip: this deck is one `.qd` file. Same source can compile to PDF, a paged document or a docs site with search.
