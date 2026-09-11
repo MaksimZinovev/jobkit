@@ -25,6 +25,28 @@ Open the `index.html` in the output folder it prints.
 2. Content as markdown. Add interaction where it pays: `.grid` with a custom `.stat` function for numbers, `.fragment` for reveals, a Mermaid gantt for the timeline.
 3. Compile with `--strict`, fix every error.
 
+## Usage
+
+Pages serves the compiled HTML, not the `.qd` sources. Editing a `.qd` alone changes nothing until you rebuild and push.
+
+```bash
+cd cv-slides
+quarkdown compile src/cv-slides.qd --strict --out /tmp/build
+cp -R "/tmp/build/Maksim-Zinovev-Career-Deck/." .
+cd .. && git add cv-slides/ && git commit -m "update cv-slides" && git push origin main
+```
+
+```
+git push origin main
+   ↓
+GitHub notices the push, runs its internal static build
+(no repo files involved — Jekyll-ish passthrough, ~1 min)
+   ↓
+https://maksimzinovev.github.io/jobkit/  updated
+```
+
+Same flow for `cv-wiki/` (compile `src/main.qd`).
+
 ## Gotchas
 
 - A line starting `.github/...` parses as a function call; use backticks.

@@ -186,7 +186,7 @@
     },
     {
       "id": "ach-009",
-      "text": "Ran 6 knowledge sharing sessions on AI-assisted development, testing, and automation.",
+      "text": "Over the 8 months, I ran 8 knowledge sharing sessions on AI-assisted development, testing, and automation.",
       "source": "self_reflection_fy26",
       "already_in_linkedin": false,
       "target_role": [
@@ -259,8 +259,8 @@
       "has_metrics": false
     },
     {
+      "text": "Built an AI-powered scheduled workflow that automatically analyses execution results of automated regression test suite for testing environment; combines deterministic and LLM steps that save engeneers time for initial analysis and produce failure root-cause (defect, test script issue, etc), confidence level of analysis, label failure with domain or component tag, suggests next steps and what team to escalate to, generates concise summary with 1-line verdicts and highlighted grouped test failure. It runs daily against test environment. Instead of going through each test result manually, test engineer gets a quick overview at a glance",
       "id": "ai-005",
-      "text": "Built a tool that automatically identifies likely causes of test failures, generates concise summaries, and suggests solutions for simple issues. It runs daily in production with a human review step before approval.",
       "source": "linkedin_profile",
       "already_in_linkedin": true,
       "target_role": [
@@ -302,7 +302,7 @@
     },
     {
       "id": "ai-009",
-      "text": "Built scheduled AI-powered reports that analyse test execution results across two frameworks, IWS and SmartCore, and give the team a clear view of high-impact failure areas. Two audience-tailored versions use progressive disclosure, scoring metrics, and consistent language.",
+      "text": "Built scheduled AI-powered reports that analyse test execution results for IWS framework, and give the team a clear view of high-impact failure areas, classified each failure by category (defect, test script issue, environment issue, etc). Two audience-tailored versions (stakeholders, engineers) use progressive disclosure, scoring rules, and consistent language.",
       "source": "interview_story_4",
       "already_in_linkedin": false,
       "target_role": [
