@@ -1,5 +1,6 @@
 # jobkit
 
+This is a set of tools and assets to help me with job search. 
 **Assemble job applications from pre-written pieces.** Live: <https://maksimzinovev.github.io/jobkit/>
 
 ## What
@@ -47,3 +48,7 @@ jobkit/
 | No  | Name   | Description                                                                         |
 | --- | ------ | ----------------------------------------------------------------------------------- |
 | 1   | Unslop | [Unslop](https://github.com/cursor/plugins/blob/main/pstack/skills/unslop/SKILL.md) |
+
+## Email card
+
+![](assets/email-signature.png)
