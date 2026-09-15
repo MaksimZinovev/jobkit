@@ -3,7 +3,9 @@
     "source_documents": [
       "external-sources/linkedin-profile-2026-v1.md (current Intellihub section)",
       "notes/job-search/makss-brag-document-2026.md (manager review, self-reflection, values, coaching Q3/Q4)",
-      "notes/job-search/job-search-2026.md (target roles: AI Engineer primary, Test Automation secondary)"
+      "notes/job-search/job-search-2026.md (target roles: AI Engineer primary, Test Automation secondary)",
+      "notes/job-search/makss-brag-document-2024.local.md (Figtree-era achievements: coverage dashboard, UI automation POC and strategy)",
+      "notes/job-search/interview-questions-and-answers.md (WYWM-era STAR stories: AWS-to-Azure migration testing)"
     ],
     "target_roles": [
       "Applied AI Engineer / AI Enablement Engineer (primary)",
@@ -20,7 +22,7 @@
       "Concrete nouns and verbs, one idea per sentence",
       "Plain language, precise technical terms kept"
     ],
-    "total_pieces": 52
+    "total_pieces": 64
   },
   "canonical_roles": {
     "applied_ai": "Building AI-powered tools, agents, and LLM-driven analysis end to end.",
@@ -32,7 +34,7 @@
   "role_context": [
     {
       "id": "ctx-001",
-      "text": "Intellihub is a smart metering solutions provider in Sydney.",
+      "text": "Intellihub is a major Australian energy technology company providing smart-metering and related energy solutions across Australia and New Zealand. In 2024, Intellihub supported 40+ electricity retailers; by 2026 it had become the #1 smart-meter provider in ANZ, delivering 99.5% of meter data reliably.",
       "source": "linkedin_profile",
       "already_in_linkedin": true,
       "target_role": [
@@ -46,7 +48,7 @@
     },
     {
       "id": "ctx-002",
-      "text": "I work across two platforms: IWS (Intellihub Web Services), a Python-based platform used by the operations team for service order management, reporting, and user access management.",
+      "text": "At Intellihub, I worked across two platforms: IWS (Intellihub Web Services), a Python-based platform used by the operations team for service order management, reporting, and user access management, SmartCore, a new TypeScript/Playwright test automation framework for a new system built on Microsoft Azure and D365 designed to replace IWS",
       "source": "linkedin_profile",
       "already_in_linkedin": true,
       "target_role": [
@@ -57,7 +59,7 @@
     },
     {
       "id": "ctx-003",
-      "text": "SmartCore is a new system built on Microsoft Azure and D365 using TypeScript, designed to replace IWS. I test it using Playwright.",
+      "text": "At Intellihub, SmartCore was a new system built on Microsoft Azure and D365 using TypeScript, designed to replace IWS. I tested it using Playwright/TypeScipt/Playwright-BDD.",
       "source": "linkedin_profile",
       "already_in_linkedin": true,
       "target_role": [
@@ -68,7 +70,7 @@
     },
     {
       "id": "ctx-004",
-      "text": "I report to the Test Automation Lead and work alongside two offshore automation engineers.",
+      "text": "At Intellihub, I reported to the Test Automation Lead and worked alongside two offshore automation engineers.",
       "source": "linkedin_profile",
       "already_in_linkedin": true,
       "target_role": [
@@ -90,7 +92,7 @@
     },
     {
       "id": "ctx-006",
-      "text": "I also contribute to IMDM, a Java-based system, working across three frameworks in total.",
+      "text": "At Intellihub, I also contributed to IMDM, a Java-based system, working across three frameworks in total.",
       "source": "manager_review",
       "already_in_linkedin": false,
       "target_role": [
@@ -102,7 +104,7 @@
   "achievements": [
     {
       "id": "ach-001",
-      "text": "Built the first version of BDD scenarios running in the daily CI pipeline. Before this, BDD scenarios only ran on demand. Now they run daily, giving the team constant feedback.",
+      "text": "At Intellihub, built the first version of BDD scenarios running in the daily CI pipeline. Before this, BDD scenarios only ran on demand. Now they run daily, giving the team constant feedback.",
       "source": "self_reflection_fy26",
       "already_in_linkedin": false,
       "target_role": [
@@ -112,7 +114,7 @@
     },
     {
       "id": "ach-002",
-      "text": "Owned and optimised CI/CD pipelines across IWS, Jenkins, and Python, reducing manual work for the team. For example, a script that audits Jenkins for stale git branches taking up disk space, and email notifications that flag service health issues in production and test environments.",
+      "text": "At Intellihub, owned and optimized CI/CD pipelines across IWS/Jenkins/Python and Azure Pipelines/TypeScript/Playwright-BDD,  reducing manual work for the team. For example, a script that audits Jenkins for stale git branches taking up disk space, and email notifications that flag service health issues in production and test environments.",
       "source": "self_reflection_fy26",
       "already_in_linkedin": false,
       "target_role": [
@@ -122,29 +124,8 @@
       "has_metrics": false
     },
     {
-      "id": "ach-003",
-      "text": "Created AutomationHub: a BDD step library, metrics tracking, a SharePoint page, and Power Automate workflows for the automation team.",
-      "source": "self_reflection_fy26",
-      "already_in_linkedin": false,
-      "target_role": [
-        "test_automation",
-        "automation_tooling"
-      ],
-      "has_metrics": false
-    },
-    {
-      "id": "ach-004",
-      "text": "Built the SmartCore BDD Step Library so testers, BAs, and business team members can write and reuse automation steps in plain language.",
-      "source": "values_behaviours",
-      "already_in_linkedin": false,
-      "target_role": [
-        "test_automation"
-      ],
-      "has_metrics": false
-    },
-    {
       "id": "ach-005",
-      "text": "Created .github/copilot-instructions.md (Agents.md) files in the IWS and SmartCore repos, giving AI agents a repo map and project context at session start.",
+      "text": "At Intellihub, created .github/copilot-instructions.md (Agents.md) files in the IWS and SmartCore repos, giving AI agents a repo map and project context at session start, unified set of agent rules used by everyone in a team.",
       "source": "values_behaviours",
       "already_in_linkedin": false,
       "target_role": [
@@ -154,7 +135,7 @@
     },
     {
       "id": "ach-006",
-      "text": "Took ownership of technical debt. In PR 845 (SC-3740), removed hardcoded waits from SmartCore tests to improve test reliability.",
+      "text": "(Intellihub) Took ownership of technical debt. Highlighted existing multiple hardcoded waits, in one of the PRs, replaced them with robust implicit waits and applied Playwright best practices tests to improve test reliability.",
       "source": "values_behaviours",
       "already_in_linkedin": false,
       "target_role": [
@@ -165,7 +146,7 @@
     },
     {
       "id": "ach-007",
-      "text": "Caught issues early through PR reviews and task coordination, preventing defects from reaching production.",
+      "text": "(Intellihub) Caught issues early through PR reviews and task coordination, preventing defects from reaching production. Developed and used advanced agent skills for this.",
       "source": "self_reflection_fy26",
       "already_in_linkedin": false,
       "target_role": [
@@ -176,7 +157,7 @@
     },
     {
       "id": "ach-008",
-      "text": "Supported the dev team during weekend production rollouts, including preparing, stopping, and restarting Jenkins CI jobs.",
+      "text": "(Intellihub) Supported the dev team during weekend production rollouts, including preparing, stopping, and restarting Jenkins CI jobs.",
       "source": "values_behaviours",
       "already_in_linkedin": false,
       "target_role": [
@@ -186,7 +167,7 @@
     },
     {
       "id": "ach-009",
-      "text": "Over the 8 months, I ran 8 knowledge sharing sessions on AI-assisted development, testing, and automation.",
+      "text": "(Intellihub) Over the 8 months, I ran 8 knowledge sharing sessions on AI-assisted development, testing, and automation.",
       "source": "self_reflection_fy26",
       "already_in_linkedin": false,
       "target_role": [
@@ -196,7 +177,7 @@
     },
     {
       "id": "ach-010",
-      "text": "Created blog posts from session transcripts and shared them with the team.",
+      "text": "(Intellihub), Created blog posts from session transcripts and shared them with the team.",
       "source": "values_behaviours",
       "already_in_linkedin": false,
       "target_role": [
@@ -212,6 +193,37 @@
       "target_role": [
         "test_automation",
         "automation_tooling"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "ach-012",
+      "text": "At Figtree Systems, built the first UI test automation framework from scratch and deployed a Playwright UI suite with 50+ automated scenarios, leading the work. It saved 4-6 hours of manual work per regression run.",
+      "source": "linkedin_profile + brag_document_2024",
+      "already_in_linkedin": true,
+      "target_role": [
+        "test_automation",
+        "automation_tooling"
+      ],
+      "has_metrics": true
+    },
+    {
+      "id": "ach-013",
+      "text": "At Figtree Systems, made test coverage visible with a Jira dashboard. Manual test coverage grew from 20-30% to 50-70% in under 4 months.",
+      "source": "brag_document_2024",
+      "already_in_linkedin": false,
+      "target_role": [
+        "quality_engineering"
+      ],
+      "has_metrics": true
+    },
+    {
+      "id": "ach-014",
+      "text": "At WithYouWithMe, tested the migration of courses from AWS to Azure storage. Prioritized the top 10 most popular courses from usage data, built an Excel script tool that checked file availability, and reported multiple migrated files missing or inaccessible.",
+      "source": "interview_stories",
+      "already_in_linkedin": false,
+      "target_role": [
+        "quality_engineering"
       ],
       "has_metrics": false
     }
