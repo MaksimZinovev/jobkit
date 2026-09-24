@@ -730,20 +730,9 @@
       "has_metrics": true
     },
     {
-      "id": "proj-002",
-      "repo": "curriculum-learning-outcomes-au",
-      "text": "Added data-quality guardrails to the curriculum sync: outcomes deduplicated by CMS codename, a sync that aborts without writing when totals drop more than 10 percent, and failed fetches that keep last-known rows flagged as stale.",
-      "source": "github_repo",
-      "already_in_linkedin": false,
-      "target_role": [
-        "quality_engineering"
-      ],
-      "has_metrics": true
-    },
-    {
       "id": "proj-003",
       "repo": "groundcrew",
-      "text": "Built groundcrew, a public CI monitoring bot developed as part of volunteer work with Scoolendar. It reads GitHub Actions results, performs AI analysis of regression testing results, and posts plain-language summaries to Telegram: what failed, why, and where to look. It answers follow-up questions in Telegram using CI data and live website inspection. The bot recalls past failures and human corrections, so repeated issues are flagged instead of re-explained.",
+      "text": "Built groundcrew, a public CI monitoring bot developed as part of volunteer work with Scoolendar. It reads GitHub Actions results, performs AI analysis of regression testing results, and posts plain-language summaries to Telegram: what failed, why, and where to look. It answers follow-up questions in Telegram using CI data and live website inspection. The bot recalls past failures and human corrections, so repeated issues are flagged instead of re-explained. groundcrew - open and check Telegram chat (10-20 sec).  CI or email - open site, login, 2FA, open pipelines (2-5 mins). That saves time every day. It may look like not much but over a year that can turn into 10-20 hours",
       "source": "github_repo",
       "already_in_linkedin": false,
       "target_role": [
@@ -781,20 +770,9 @@
       "note": "Already in CV GitHub Highlights."
     },
     {
-      "id": "proj-006",
-      "repo": "house-of-prompts",
-      "text": "Built and maintain house-of-prompts, a curated, searchable collection of AI prompts, snippets, and workflows in markdown, organized by AI tool and use case, published on GitHub Pages.",
-      "source": "github_repo",
-      "already_in_linkedin": false,
-      "target_role": [
-        "ai_enablement"
-      ],
-      "has_metrics": false
-    },
-    {
       "id": "proj-007",
       "repo": "starlord",
-      "text": "Wrote starlord, an agent skill that compares starred GitHub repos against locked criteria. Scripts gather metadata first, the LLM sees pre-digested facts for 8 to 12 candidates, and a validation script rejects claims without a source.",
+      "text": "Wrote starlord, an agent skill that compares starred GitHub repos against locked criteria. Scripts gather metadata first, the LLM sees pre-digested facts for 8 to 12 candidates, and a validation script rejects claims without a source. Set of rubrics and weights helps to calibrate, tune the judgement and scoring. Final table format + concise prose explaining strengths and weaknesses of each candidate makes it easy for user to understand comparison in condensed form and make an informed decision",
       "source": "github_repo",
       "already_in_linkedin": false,
       "target_role": [
@@ -805,7 +783,7 @@
     {
       "id": "proj-008",
       "repo": "television-skill",
-      "text": "Created television-skill, an agent skill for the television terminal fuzzy finder, compatible with pi, Claude Code, Codex, and any Agent Skills client. It packages the full channel spec, a scaffold script for custom channels, and 7 documented gotchas.",
+      "text": "Created television-skill, an agent skill for the television terminal fuzzy finder, compatible with pi, Claude Code, Codex, and any Agent Skills client. It packages the full channel spec, a scaffold script for custom channels, and 7 documented gotchas. Why its worth attention - saves me few minutes every day on frequently performed tasks like launching local dev servers and commands, searching AI agent skills, generating documents using library of AI prompts, e.g. extract learning note from youtube using LLM, generate note from GitHub readme or any web page; it captures the purpose, sample use cases, key details, how it works in concise format, perfect for curated resources in personal wiki or knowledge base",
       "source": "github_repo",
       "already_in_linkedin": false,
       "target_role": [
