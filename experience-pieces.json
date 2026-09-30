@@ -610,6 +610,28 @@
         "test_automation"
       ],
       "has_metrics": false
+    },
+    {
+      "id": "skill-012",
+      "text": "ServiceNow Change Management (Intellihub). Used on a daily basis for both submitting requests and resolving requests from other teams, e.g. create Jenkins user account",
+      "source": "manually_added",
+      "already_in_linkedin": false,
+      "target_role": [
+        "automation_tooling",
+        "test_automation"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "skill-013",
+      "text": "MCP experience.In intellhub we used MCP to connext to Atlassian Jira, Confluence, Microsoft documentation  I was the one who initiated the discussion and advocated for getting access to Microsoft Docs  MCP. This was before organization introduced the catalog of approved MCP. I use MCP on a often when learning or working on my own projects and repos: GitHub, Deepwiki,  Chrome dev tools are my favorite ones.   I also try to maintain balance because I know MCP cost for AI driven development (it bloats system prompt of AI agents oftentames with large tool definitions). Where possibly I try to use on-demand cli instead of MCP. THis improves perfomance of agents by savings in  context window",
+      "source": "manually_added",
+      "already_in_linkedin": false,
+      "target_role": [
+        "automation_tooling",
+        "test_automation"
+      ],
+      "has_metrics": false
     }
   ],
   "manager_feedback": [
@@ -721,7 +743,7 @@
     {
       "id": "proj-001",
       "repo": "curriculum-learning-outcomes-au",
-      "text": "Built a machine-readable NSW curriculum dataset: 1,500+ learning outcomes extracted from 81 NESA syllabus pages, synced monthly by a GitHub Actions job, with a zero-dependency explorer on GitHub Pages.",
+      "text": "Built a machine-readable NSW curriculum dataset: 1,500+ learning outcomes extracted from 81 NESA syllabus pages, synced monthly by a GitHub Actions job, with a zero-dependency explorer on GitHub Pages. Scoolendar owner mentioned existing pain point - when creating educational events, it is difficult for users to find relevant learning outcomes and codes (as per NSW standard). I researched, discovered there is no official API, found a workaround (fetch from website) and built POC with public dataset https://github.com/MaksimZinovev/curriculum-learning-outcomes-au .It runs automatically and updates data every month plus GitHub pages provide convenient UI to explore, search and filter data",
       "source": "github_repo",
       "already_in_linkedin": false,
       "target_role": [
