@@ -68,5 +68,5 @@ tmbootpicker.efi
 
 # Exclude the following files from ignored 
 !assets/
-,local/
+.local/
 

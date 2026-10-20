@@ -613,7 +613,7 @@
       "Concrete nouns and verbs, one idea per sentence",
       "Plain language, precise technical terms kept"
     ],
-    "total_pieces": 64
+    "total_pieces": 67
   },
   "canonical_roles": {
     "applied_ai": "Building AI-powered tools, agents, and LLM-driven analysis end to end.",
@@ -862,7 +862,7 @@
       "has_metrics": false
     },
     {
-      "text": "Built an AI-powered scheduled workflow that automatically analyses execution results of automated regression test suite for testing environment; combines deterministic and LLM steps that save engeneers time for initial analysis and produce failure root-cause (defect, test script issue, etc), confidence level of analysis, label failure with domain or component tag, suggests next steps and what team to escalate to, generates concise summary with 1-line verdicts and highlighted grouped test failure. It runs daily against test environment. Instead of going through each test result manually, test engineer gets a quick overview at a glance",
+      "text": "Built an AI-powered scheduled workflow (uses small, cheap LLM via Copilot CLI) that automatically analyses execution results of automated regression test suite for testing environment; combines deterministic and LLM steps that save engineers time for initial analysis and produce failure root-cause (defect, test script issue, etc), confidence level of analysis, label failure with domain or component tag, suggests next steps and what team to escalate to, generates concise summary with 1-line verdicts and highlighted grouped test failure. It runs daily against test environment. Instead of going through each test result manually, test engineer gets a quick overview at a glance",
       "id": "ai-005",
       "source": "linkedin_profile",
       "already_in_linkedin": true,
@@ -874,7 +874,7 @@
     },
     {
       "id": "ai-006",
-      "text": "Built the AI analysis tool on the team's BDD framework so other engineers can reuse AI-powered steps written in plain language, and edit steps without code changes in the Jira and Zephyr web editor.",
+      "text": "Built the AI analysis tool on the team's BDD framework so other engineers and stakeholders can reuse AI-powered steps written in plain language, and edit steps without code changes in the Jira and Zephyr web editor.",
       "source": "linkedin_profile",
       "already_in_linkedin": true,
       "target_role": [
@@ -944,6 +944,16 @@
         "applied_ai"
       ],
       "has_metrics": false
+    },
+    {
+      "id": "ai-013",
+      "text": "Solving todays AI enablement challenges. Authored and shared 3 agent skills that help humans to saty in the loop and make it easuer to process AI generated content. 1) Unslop skill; 2) Response techniques skill; 3) conceptual-model skill 4) explaining-code skill. These skills were utilizing latest insdustry best practices and techniques for prompt engineering, agentic engineering, and LLMs. They are designed to be reusable and adaptable for different contexts and tasks. They help to improve the quality, clarity, and relevance of AI-generated content, as well as to enhance human understanding and decision-making.",
+      "source": "manually_added",
+      "already_in_linkedin": false,
+      "target_role": [
+        "applied_ai"
+      ],
+      "has_metrics": false
     }
   ],
   "cicd_infrastructure": [
@@ -991,7 +1001,7 @@
     },
     {
       "id": "res-003",
-      "text": "Review pull requests and give feedback to development teams across IWS and SmartCore.",
+      "text": "Review pull requests and give feedback to test automation teams and test automation contractors across IWS and SmartCore.",
       "source": "linkedin_profile",
       "already_in_linkedin": true,
       "target_role": [
@@ -1201,6 +1211,28 @@
         "test_automation"
       ],
       "has_metrics": false
+    },
+    {
+      "id": "skill-012",
+      "text": "ServiceNow Change Management (Intellihub). Used on a daily basis for both submitting requests and resolving requests from other teams, e.g. create Jenkins user account",
+      "source": "manually_added",
+      "already_in_linkedin": false,
+      "target_role": [
+        "automation_tooling",
+        "test_automation"
+      ],
+      "has_metrics": false
+    },
+    {
+      "id": "skill-013",
+      "text": "MCP experience. In intellhub we used MCP in VS Code on a daily basis - Atlassian Jira, Confluence, Microsoft documentation.  I was the one who initiated the discussion and advocated for getting access to Microsoft Docs  MCP. This was before organization introduced the catalog of approved MCP. I use MCP on a often when learning or working on my own projects and repos: GitHub, Deepwiki,  Chrome dev tools are my favorite ones. I also try to maintain balance because I know MCP cost for AI driven development (it bloats system prompt of AI agents oftentames with large tool definitions). Where possibly I try to use on-demand cli instead of MCP. THis improves perfomance of agents by savings in  context window",
+      "source": "manually_added",
+      "already_in_linkedin": false,
+      "target_role": [
+        "automation_tooling",
+        "test_automation"
+      ],
+      "has_metrics": false
     }
   ],
   "manager_feedback": [
@@ -1245,7 +1277,7 @@
     },
     {
       "id": "mgr-004",
-      "text": "\"Actively contributes to PR reviews, knowledge sharing, and team support.\"",
+      "text": "\"Actively contributes to PR reviews (test automation team), knowledge sharing, and team support.\"",
       "source": "manager_review",
       "already_in_linkedin": false,
       "target_role": [
@@ -1312,7 +1344,7 @@
     {
       "id": "proj-001",
       "repo": "curriculum-learning-outcomes-au",
-      "text": "Built a machine-readable NSW curriculum dataset: 1,500+ learning outcomes extracted from 81 NESA syllabus pages, synced monthly by a GitHub Actions job, with a zero-dependency explorer on GitHub Pages.",
+      "text": "Built a machine-readable NSW curriculum dataset: 1,500+ learning outcomes extracted from 81 NESA syllabus pages, synced monthly by a GitHub Actions job, with a zero-dependency explorer on GitHub Pages. Scoolendar owner mentioned existing pain point - when creating educational events, it is difficult for users to find relevant learning outcomes and codes (as per NSW standard). I researched, discovered there is no official API, found a workaround (fetch from website) and built POC with public dataset https://github.com/MaksimZinovev/curriculum-learning-outcomes-au .It runs automatically and updates data every month plus GitHub pages provide convenient UI to explore, search and filter data",
       "source": "github_repo",
       "already_in_linkedin": false,
       "target_role": [
@@ -1321,20 +1353,9 @@
       "has_metrics": true
     },
     {
-      "id": "proj-002",
-      "repo": "curriculum-learning-outcomes-au",
-      "text": "Added data-quality guardrails to the curriculum sync: outcomes deduplicated by CMS codename, a sync that aborts without writing when totals drop more than 10 percent, and failed fetches that keep last-known rows flagged as stale.",
-      "source": "github_repo",
-      "already_in_linkedin": false,
-      "target_role": [
-        "quality_engineering"
-      ],
-      "has_metrics": true
-    },
-    {
       "id": "proj-003",
       "repo": "groundcrew",
-      "text": "Built groundcrew, a public CI monitoring bot developed as part of volunteer work with Scoolendar. It reads GitHub Actions results, performs AI analysis of regression testing results, and posts plain-language summaries to Telegram: what failed, why, and where to look. It answers follow-up questions in Telegram using CI data and live website inspection. The bot recalls past failures and human corrections, so repeated issues are flagged instead of re-explained.",
+      "text": "Built groundcrew, a public CI monitoring bot developed as part of volunteer work with Scoolendar. It reads GitHub Actions results, performs AI analysis of regression testing results, and posts plain-language summaries to Telegram: what failed, why, and where to look. It answers follow-up questions in Telegram using CI data and live website inspection. The bot recalls past failures and human corrections, so repeated issues are flagged instead of re-explained. groundcrew - open and check Telegram chat (10-20 sec).  CI or email - open site, login, 2FA, open pipelines (2-5 mins). That saves time every day. It may look like not much but over a year that can turn into 10-20 hours",
       "source": "github_repo",
       "already_in_linkedin": false,
       "target_role": [
@@ -1359,33 +1380,9 @@
       "note": "Already in CV GitHub Highlights."
     },
     {
-      "id": "proj-005",
-      "repo": "compass-skills",
-      "text": "Created compass-skills, a set of AI agent skills that guide testers, test analysts, QA engineers, product managers, and UX researchers through building and applying domain knowledge: conceptual models, BDD scenarios, and structured questions.",
-      "source": "github_repo",
-      "already_in_linkedin": false,
-      "target_role": [
-        "ai_enablement",
-        "quality_engineering"
-      ],
-      "has_metrics": false,
-      "note": "Already in CV GitHub Highlights."
-    },
-    {
-      "id": "proj-006",
-      "repo": "house-of-prompts",
-      "text": "Built and maintain house-of-prompts, a curated, searchable collection of AI prompts, snippets, and workflows in markdown, organized by AI tool and use case, published on GitHub Pages.",
-      "source": "github_repo",
-      "already_in_linkedin": false,
-      "target_role": [
-        "ai_enablement"
-      ],
-      "has_metrics": false
-    },
-    {
       "id": "proj-007",
       "repo": "starlord",
-      "text": "Wrote starlord, an agent skill that compares starred GitHub repos against locked criteria. Scripts gather metadata first, the LLM sees pre-digested facts for 8 to 12 candidates, and a validation script rejects claims without a source.",
+      "text": "Wrote starlord, an agent skill that compares starred GitHub repos against locked criteria. Scripts gather metadata first, the LLM sees pre-digested facts for 8 to 12 candidates, and a validation script rejects claims without a source. Set of rubrics and weights helps to calibrate, tune the judgement and scoring. Final table format + concise prose explaining strengths and weaknesses of each candidate makes it easy for user to understand comparison in condensed form and make an informed decision",
       "source": "github_repo",
       "already_in_linkedin": false,
       "target_role": [
@@ -1396,13 +1393,52 @@
     {
       "id": "proj-008",
       "repo": "television-skill",
-      "text": "Created television-skill, an agent skill for the television terminal fuzzy finder, compatible with pi, Claude Code, Codex, and any Agent Skills client. It packages the full channel spec, a scaffold script for custom channels, and 7 documented gotchas.",
+      "text": "Created television-skill, an agent skill for the television terminal fuzzy finder, compatible with pi, Claude Code, Codex, and any Agent Skills client. It packages the full channel spec, a scaffold script for custom channels, and 7 documented gotchas. Why its worth attention - saves me few minutes every day on frequently performed tasks like launching local dev servers and commands, searching AI agent skills, generating documents using library of AI prompts, e.g. extract learning note from youtube using LLM, generate note from GitHub readme or any web page; it captures the purpose, sample use cases, key details, how it works in concise format, perfect for curated resources in personal wiki or knowledge base",
       "source": "github_repo",
       "already_in_linkedin": false,
       "target_role": [
         "ai_enablement"
       ],
       "has_metrics": false
+    },
+    {
+      "id": "proj-009",
+      "repo": "ats-search-tool",
+      "text": "I built ats-search-tool for the hidden job market. The best roles often live only on employer ATS boards like Greenhouse, Lever or Workday, plus government and university systems, and never reach Seek or LinkedIn. What used to be 29 separate Google searches is now one search.\n\nJEV, a small scoring model from TypeSafe, grades each match 0-4 for keyword match, open job, location fit and still live. Each question carries five written criteria, and results return as typed data, not prose. One batched call scores each platform's snippets, and expanding a row re-checks the full posting page. A deterministic gone-check catches dead postings before the model runs.\n\nDoes it work? Not a magic pill, but it works. Two days of use graded 1,000+ postings for about five cents and saved roughly 3-8 hours of link-opening. The best catch was a Flybuys automation engineer role missing from LinkedIn. I applied for it.\n\nGood proof of Applied AI Engineer skills. It shows I can turn agentic AI techniques into working code: structured scores from a small cheap model, criteria anchors, batching, deterministic checks. Built for my own job hunt, not as a demo, and I use it every day.\n\nSignificance: high. Fresh, public, in daily use, and it has already caught roles the big boards missed.",
+      "source": "github_repo",
+      "already_in_linkedin": false,
+      "target_role": [
+        "applied_ai",
+        "automation_tooling"
+      ],
+      "has_metrics": true,
+      "note": "Public repo, published 2026-10-20. Freshest entry, used daily. Same small-model structured-output pattern as ai-009/ai-011, backed by a public repo. Metrics from job-search-lessons-learned.md: 1,000+ requests, ~$0.05 grading cost, 10-30s saved per posting, Flybuys role catch. Featured as a LinkedIn story post with screenshots (not yet on the profile). Time savings restated as aggregate: 10-30s per posting x 1,000+ posts = roughly 3-8 hours over two days (derived, check before use)."
+    },
+    {
+      "id": "proj-010",
+      "repo": "job-application-workflow",
+      "text": "I built job-application-workflow, a skill that runs a job application as a gated pipeline. Instead of a cover letter written blind, my applications start with a score. Python grades the ad against my rubric with web search grounding, and I decide to promote the job or drop it, so a bad fit never costs a letter.\n\nThe LLM writes prose, Python does every check. Draft one faces mechanical rules, em dashes, cliches, keyword coverage. A fresh-context judge then scores it against a six-dimension rubric. Rewrites become v2 while v1 stays on disk, and a retro distills each run into learned rules for the next one. Every step stops at a checkpoint I approve.\n\nMore than thirty jobs have gone through scoring in my real hunt, and three interviews came out of those applications. Good proof of Applied AI Engineer skills. It shows LLM-as-judge, tiered verification, rubric design and human gates working in code. Not a demo. It decides which jobs get my time and drafts the letters I send.\n\nSignificance: high. Real usage, thirty scored jobs, three interviews already, and public code.",
+      "source": "github_repo",
+      "already_in_linkedin": false,
+      "target_role": [
+        "applied_ai",
+        "quality_engineering"
+      ],
+      "has_metrics": false,
+      "note": "Public repo (Sep 2026). Real usage evidence in wiki notes/2026-job-scoring: numbered scoring runs up to 37, scoring.md on rubric axes (salary, job type, company size, culture, location, roles), rule-checks.json, self-improvements.md retros feeding learned rules. 'More than thirty' derived from folder numbering, confirm. Outcome metric confirmed by user 2026-10-20: 3 interviews from 30+ scored applications."
+    },
+    {
+      "id": "proj-013",
+      "repo": "scool-playwright",
+      "text": "I've maintained Scoolendar's automated test suite as volunteer QA and automation engineer since August 2025. Scoolendar is an educational events platform aligned to NSW curriculum, and its founder develops solo part-time, so there's no QA role. My suite and its CI runs are the safety net for every release.\n\nAround 100 Playwright tests (UI+API) in 20 spec files run in CircleCI on every change, and they've stayed green for over a year while the product changed underneath them. When views changed, I updated selectors. When tests depended on each other's data, I reworked them to be self-contained, so failures stay isolated. That's 13 months and roughly 175 repository commits.\n\nFor me, this was an opportunity to run quality for a real product as a one-person function: design the suite, keep tests independent, keep the net working while the product moves. Good proof of Test Automation and Quality Engineering skills together: Playwright, CI discipline, self-contained test design, long-horizon maintenance. Significance: medium-high. Real product, real users, sustained volunteer ownership.\n\n**Repository:** private (scool-playwright).",
+      "source": "github_repo",
+      "already_in_linkedin": false,
+      "target_role": [
+        "test_automation",
+        "quality_engineering"
+      ],
+      "has_metrics": true,
+      "note": "Private repo scool-playwright, created 2025-09-21, last commit 2026-10-14. Numbers: 20 spec/feature files (repo tree), ~100 tests (job-search-2026 note), 175 commits (GitHub search, author=MaksimZinovev), CircleCI confirmed (.circleci/config.yml). Product description grounded in proj-001 curriculum piece (educational events, NSW curriculum outcomes). No public URL verified for product. Numbers pending user confirmation."
     }
   ]
 };
