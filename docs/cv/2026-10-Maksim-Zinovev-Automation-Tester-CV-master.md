@@ -3,7 +3,7 @@ Maksim Zinovev
 
 0415 182 769 • [mzn@fastmail.com](mailto:mzn@fastmail.com) •  Waitara, NSW 2077• Australian citizenship
 
-Software automation tester with 5+ years of experience across testing, automation, and QA, certified in ISTQB and AZ-900. Solid skills in automated and manual testing of web applications. Experience in UI and API test automation, exposure to performance and unit testing. Most recently at Intellihub, designed BDD test automation across Python and TypeScript frameworks and led AI enablement: agentic engineering design patterns and practices,  shared GitHub Copilot Skills, an AI-powered PR review agent, and monthly knowledge-sharing sessions. Skilled with project management and documentation tools (Atlassian, Microsoft), cloud services (Azure, GitLab, GitHub), and testing across frontend, database, and API layers. Reliable, collaborative team player known for curiosity, technical thinking, and continuous upskilling.
+Software Automation Engineer **with 5+ years of experience** in software testing, **automation** across energy, insurance, talent acquisition and document management software. Certified in ISTQB and AZ-900. Solid foundation in automated and manual testing of web applications. Experience in UI and API test automation, exposure to performance and unit testing. Recently at Intellihub, designed BDD test automation across Python and TypeScript frameworks and leading AI enablement: agentic engineering design patterns and practices,  shared GitHub Copilot Skills, an AI-powered PR review agent, and monthly knowledge-sharing sessions. Skilled with project management and documentation tools (Atlassian, Microsoft), cloud services (Azure, GitLab, GitHub), and testing across frontend, database, and API layers. Reliable, collaborative team player known for curiosity, technical thinking, and continuous upskilling.
 
 **KEY SKILLS AND COMPETENCIES**
 
@@ -28,9 +28,10 @@ Test automation role across two platforms: IWS (Intellihub Web Services), a Pyth
 
 **Highlighted achievements and learning milestones:**
 
-- Built the first **BDD scenarios running in the daily CI pipeline.** Before this, scenarios ran only on demand; now they run daily, giving the team constant feedback.  
-- Built **automated monitoring for production and test environments using Jenkins pipelines**, Python scripts, scheduled checks, email alerts, and build badges. Built a tool that analyses daily automation execution results, identifies likely failure causes, and suggests solutions, with a human review step.  
-- **Lead AI enablement across the team:** monthly knowledge-sharing sessions on practical AI-assisted development (other team members now present their own techniques), .github/copilot-instructions.md (Agents.md) files giving AI agents a repo map at session start, 5 shared GitHub Copilot Skills used by colleagues in daily work, and an AI-powered PR review agent saving an estimated 5 to 10% time per review.
+- Built the first **BDD scenarios running in the daily CI pipeline** giving the team constant feedback.  
+- Built **automated monitoring for production and test environments using Jenkins pipelines**, Python scripts, scheduled checks, email alerts, and build badges. 
+- Built a tool that uses small, cheap LLM (via Copilot CLI) to analyse daily automation execution results. Initial analysis identifies likely failure causes wih confidence level, uses domain knowledge to label impacted business flow and system, group related issues by nature and produce easy to read actionable insights.  
+- **Led AI enablement across the team:** monthly knowledge-sharing sessions on practical AI-assisted development (with optional attendance, other team members also presented their own techniques). Introduced 1st shared agentic resources: .github/copilot-instructions.md (Agents.md) files giving AI agents a repo map at session start, 5 GitHub Copilot Skills used by colleagues in daily work, and an AI-powered PR review agent saving an estimated 5 to 10% time per review.
 
 **QA Product Tester | Test Automation | Figtree Systems&#xA0;**
 

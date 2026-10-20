@@ -1,0 +1,17 @@
+{
+  "personal_projects": [
+ {
+   "id": "proj-005",
+   "repo": "compass-skills",
+   "text": "Created compass-skills, a set of AI agent skills that guide testers, test analysts, QA engineers, product managers, and UX researchers through building and applying domain knowledge: conceptual models, BDD scenarios, and structured questions.",
+   "source": "github_repo",
+   "already_in_linkedin": false,
+   "target_role": [
+    "ai_enablement",
+    "quality_engineering"
+   ],
+   "has_metrics": false,
+   "note": "Already in CV GitHub Highlights.",
+   "flag": "2026-10-05 (run 19_ai-engineer-orion): user says compass-skills are internal Intellihub skills, not for public sharing — do not cite as a public project."
+  }]
+}
